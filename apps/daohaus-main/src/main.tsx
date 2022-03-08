@@ -2,10 +2,13 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import { DaohausUi } from '@daohaus-monorepo/daohaus-ui';
 import App from './app/app';
+import { initializationActions } from './utils/summon';
 
-console.log('DaohausUi', DaohausUi);
+const txData = initializationActions;
+
+console.log('txData', txData);
+
 ReactDOM.render(
   <StrictMode>
     <BrowserRouter>

@@ -10,5 +10,5 @@ export const getNonce = (length = 16) => {
 };
 
 export const encodeAction = (action: ContractAction): string => {
-  return '';
+  console.log('action', action);
 };

@@ -1,20 +1,28 @@
 import { ContractAction } from '../types/contract';
 import { encodeAction, getNonce } from './general';
 
+const LOOT_SINGLETON_ADDRESS = '0xE4B40ea347Dffe40b5d0d562bF873d830C124643';
+const GNOSIS = {
+  SINGLETON: '0xd9db270c1b5e3bd161e8c8503c55ceabee709552',
+  FALLBACK: '0xf48f2b2d2a534e402487b3ee7c18c33aec0fe5e4',
+  MULTISEND: '0xa238cbeb142c10ef7ad8442c6d1f9e89e07e7761',
+};
+const POSTER = '0x000000000000cd17345801aa8147b8D3950260FF';
+
 const TEST = {
   NETWORK: '0x4',
-  GENERIC_ADDRESS: '0x511449dD36e5dB31980AA0452aAAB95b9a68ae99',
   JORD: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
+  BAAL: '',
 };
 
-const INITALIZATION_PARAMS = {
+const INITIALIZATION_PARAMS = {
   CONTRACT: 'BAAL',
   ACTION: 'setUp',
   ARGS: {
     SHARE_TOKEN_NAME: 'RAGE',
     SHARE_TOKEN_ADDRESS: 'Rage Token',
-    LOOT_SINGLETON_ADDRESS: TEST.GENERIC_ADDRESS,
-    MULTISEND_ADDRESS: TEST.GENERIC_ADDRESS,
+    LOOT_SINGLETON: LOOT_SINGLETON_ADDRESS,
+    MULTISEND_ADDRESS: GNOSIS.MULTISEND,
   },
 };
 const ADMIN_CONFIG = {
@@ -80,4 +88,4 @@ const rawActions: ContractAction[] = [
   LOOT_CONFIG,
 ];
 
-export const initializationActions = rawActions.map((action) => encodeAction);
+export const initializationActions = rawActions.map(encodeAction);
