@@ -1,5 +1,7 @@
-import { ContractAction } from '../types/contract';
-import { encodeAction, getNonce } from './general';
+import { LOCAL_CONTRACT } from '../data/contracts';
+import { safeEncodeHexFunction } from './abi';
+import { getNonce } from './general';
+import { AbiItem } from 'web3-utils';
 
 const LOOT_SINGLETON_ADDRESS = '0xE4B40ea347Dffe40b5d0d562bF873d830C124643';
 const GNOSIS = {
@@ -12,11 +14,10 @@ const POSTER = '0x000000000000cd17345801aa8147b8D3950260FF';
 const TEST = {
   NETWORK: '0x4',
   JORD: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
-  BAAL: '',
 };
 
 const INITIALIZATION_PARAMS = {
-  CONTRACT: 'BAAL',
+  CONTRACT: LOCAL_CONTRACT.BAAL,
   ACTION: 'setUp',
   ARGS: {
     SHARE_TOKEN_NAME: 'RAGE',
@@ -26,15 +27,15 @@ const INITIALIZATION_PARAMS = {
   },
 };
 const ADMIN_CONFIG = {
-  CONTRACT: 'BAAL',
+  CONTRACT: LOCAL_CONTRACT.BAAL,
   ACTION: 'setAdminConfig',
   ARGS: {
-    PAUSE_SHARES: true,
-    PAUSE_LOOT: true,
+    PAUSE_SHARES: 'true',
+    PAUSE_LOOT: 'true',
   },
 };
 const GOVERNANCE_CONFIG = {
-  CONTRACT: 'BAAL',
+  CONTRACT: LOCAL_CONTRACT.BAAL,
   ACTION: 'setGovernanceConfig',
   ARGS: {
     VOTING: '6000', //seconds
@@ -42,11 +43,11 @@ const GOVERNANCE_CONFIG = {
     NEW_OFFERING: '0',
     QUORUM: '0',
     SPONSOR: '20', //amount of shares to self sponsor
-    MIN_RETENTION: 66.66,
+    MIN_RETENTION: '66.66',
   },
 };
 const SHAMAN_CONFIG = {
-  CONTRACT: 'BAAL',
+  CONTRACT: LOCAL_CONTRACT.BAAL,
   ACTION: 'setShamans',
   ARGS: {
     SHAMANS: [], //array of addresses
@@ -54,19 +55,19 @@ const SHAMAN_CONFIG = {
   },
 };
 const SHARES_CONFIG = {
-  CONTRACT: 'BAAL',
+  CONTRACT: LOCAL_CONTRACT.BAAL,
   ACTION: 'MintShares',
   ARGS: {
     TO: [TEST.JORD], //address array
-    AMOUNT: [40], //number array
+    AMOUNT: ['40'], //number array
   },
 };
 const LOOT_CONFIG = {
-  CONTRACT: 'BAAL',
+  CONTRACT: LOCAL_CONTRACT.BAAL,
   ACTION: 'MintLoot',
   ARGS: {
     TO: [TEST.JORD], //address array
-    AMOUNT: [100], //number array
+    AMOUNT: ['100'], //number array
   },
 };
 
@@ -80,7 +81,7 @@ const METADATA = {
 };
 export const SALT_NONCE = getNonce();
 
-const rawActions: ContractAction[] = [
+const rawActions = [
   ADMIN_CONFIG,
   GOVERNANCE_CONFIG,
   SHAMAN_CONFIG,
@@ -88,4 +89,12 @@ const rawActions: ContractAction[] = [
   LOOT_CONFIG,
 ];
 
-export const initializationActions = rawActions.map(encodeAction);
+export const initializationActions = rawActions.map((action) => {
+  const selectedFn = action.CONTRACT.find(
+    (item) => item.name === action.ACTION
+  );
+  return safeEncodeHexFunction(
+    selectedFn as AbiItem,
+    Object.values(action.ARGS)
+  );
+});

@@ -1,5 +1,3 @@
-import { ContractAction } from '../types/contract';
-
 export const getNonce = (length = 16) => {
   let text = '';
   const possible = '0123456789';
@@ -7,8 +5,4 @@ export const getNonce = (length = 16) => {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
-};
-
-export const encodeAction = (action: ContractAction): string => {
-  console.log('action', action);
 };
