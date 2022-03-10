@@ -1,23 +1,37 @@
-import Web3 from 'web3';
-import { AbiItem } from 'web3-utils';
+import { ethers } from 'ethers';
+import { ABI } from '../types/contract';
+import { ErrorType } from '../types/general';
+import { isArray, isBoolean, isNumber, isString } from './general';
+
+export const isArgType = (item: unknown) =>
+  isBoolean(item) || isString(item) || isNumber(item) || isArray(item);
 
 export const safeEncodeHexFunction = (
-  abiItem: AbiItem,
+  abi: ABI,
+  fnName: string,
   functionArgs: string[]
-): string | { error: boolean; message: string } => {
-  if (!abiItem || !Array.isArray(functionArgs))
-    throw new Error(
-      'Incorrect params passed to safeEncodeHexFunction in abi.js'
-    );
+): string | ErrorType => {
   try {
-    const web3 = new Web3();
-    return '';
-    // return web3.eth.abi.encodeFunctionCall(abiItem, functionArgs);
+    if (!abi || !Array.isArray(functionArgs))
+      throw new Error(
+        'Incorrect params passed to safeEncodeHexFunction in abi.js'
+      );
+    const abiString = JSON.stringify(abi);
+    const ethersInterface = new ethers.utils.Interface(abiString);
+    return ethersInterface.encodeFunctionData(fnName, functionArgs);
   } catch (error) {
+    console.log('error', error);
     return {
       error: true,
       message:
         'Could not encode transaction data with the values entered into this form',
     };
   }
+};
+
+export const defaultEncode = (
+  typesArray: string[],
+  argArray: (string | number)[]
+): string => {
+  return ethers.utils.defaultAbiCoder.encode(typesArray, argArray);
 };
