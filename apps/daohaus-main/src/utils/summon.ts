@@ -1,7 +1,9 @@
 import { LOCAL_CONTRACT } from '../data/contracts';
-import { safeEncodeHexFunction } from './abi';
-import { getNonce } from './general';
-import { AbiItem } from 'web3-utils';
+import { defaultEncode, safeEncodeHexFunction } from './abi';
+import { ethers } from 'ethers';
+import { ArgType } from '../types/contract';
+
+import { providers } from 'ethers';
 
 const LOOT_SINGLETON_ADDRESS = '0xE4B40ea347Dffe40b5d0d562bF873d830C124643';
 const GNOSIS = {
@@ -9,22 +11,20 @@ const GNOSIS = {
   FALLBACK: '0xf48f2b2d2a534e402487b3ee7c18c33aec0fe5e4',
   MULTISEND: '0xa238cbeb142c10ef7ad8442c6d1f9e89e07e7761',
 };
-const POSTER = '0x000000000000cd17345801aa8147b8D3950260FF';
+const POSTER_ADDRESS = '0x000000000000cd17345801aa8147b8D3950260FF';
 
 const TEST = {
   NETWORK: '0x4',
   JORD: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
 };
 
+const FACTORY_ADDRESS = '0x31C948A5Ad149853B211de025082b61573ef3979';
+
 const INITIALIZATION_PARAMS = {
-  CONTRACT: LOCAL_CONTRACT.BAAL,
-  ACTION: 'setUp',
-  ARGS: {
-    SHARE_TOKEN_NAME: 'RAGE',
-    SHARE_TOKEN_ADDRESS: 'Rage Token',
-    LOOT_SINGLETON: LOOT_SINGLETON_ADDRESS,
-    MULTISEND_ADDRESS: GNOSIS.MULTISEND,
-  },
+  SHARE_TOKEN_NAME: 'RAGE',
+  SHARE_TOKEN_ADDRESS: 'Rage Token',
+  LOOT_SINGLETON: LOOT_SINGLETON_ADDRESS,
+  MULTISEND_ADDRESS: GNOSIS.MULTISEND,
 };
 const ADMIN_CONFIG = {
   CONTRACT: LOCAL_CONTRACT.BAAL,
@@ -37,14 +37,12 @@ const ADMIN_CONFIG = {
 const GOVERNANCE_CONFIG = {
   CONTRACT: LOCAL_CONTRACT.BAAL,
   ACTION: 'setGovernanceConfig',
-  ARGS: {
-    VOTING: '6000', //seconds
-    GRACE: '2000', //seconds
-    NEW_OFFERING: '0',
-    QUORUM: '0',
-    SPONSOR: '20', //amount of shares to self sponsor
-    MIN_RETENTION: '66.66',
-  },
+  ARGS: [
+    defaultEncode(
+      ['uint32', 'uint32', 'uint256', 'uint256', 'uint256', 'uint256'],
+      [10, 20, 50, 1, 2, 3]
+    ),
+  ],
 };
 const SHAMAN_CONFIG = {
   CONTRACT: LOCAL_CONTRACT.BAAL,
@@ -56,7 +54,7 @@ const SHAMAN_CONFIG = {
 };
 const SHARES_CONFIG = {
   CONTRACT: LOCAL_CONTRACT.BAAL,
-  ACTION: 'MintShares',
+  ACTION: 'mintShares',
   ARGS: {
     TO: [TEST.JORD], //address array
     AMOUNT: ['40'], //number array
@@ -64,22 +62,30 @@ const SHARES_CONFIG = {
 };
 const LOOT_CONFIG = {
   CONTRACT: LOCAL_CONTRACT.BAAL,
-  ACTION: 'MintLoot',
+  ACTION: 'mintLoot',
   ARGS: {
     TO: [TEST.JORD], //address array
     AMOUNT: ['100'], //number array
   },
 };
 
-const METADATA = {
-  CONTRACT: 'POSTER',
-  ACTION: 'post',
-  ARGS: {
+const METADATA = safeEncodeHexFunction(
+  LOCAL_CONTRACT.POSTER,
+  'post',
+  Object.values({
     JSON: JSON.stringify({ name: 'Salty Nonce DAO' }),
-    TAG: 'baal.metadata',
+    TAG: 'daohaus.metadata.summoner',
+  })
+);
+const METADATA_CONFIG = {
+  CONTRACT: LOCAL_CONTRACT.BAAL,
+  ACTION: 'executeAsBaal',
+  ARGS: {
+    TO: POSTER_ADDRESS,
+    VALUE: 0,
+    DATA: METADATA,
   },
 };
-export const SALT_NONCE = getNonce();
 
 const rawActions = [
   ADMIN_CONFIG,
@@ -87,14 +93,35 @@ const rawActions = [
   SHAMAN_CONFIG,
   SHARES_CONFIG,
   LOOT_CONFIG,
+  METADATA_CONFIG,
 ];
 
 export const initializationActions = rawActions.map((action) => {
-  const selectedFn = action.CONTRACT.find(
-    (item) => item.name === action.ACTION
-  );
   return safeEncodeHexFunction(
-    selectedFn as AbiItem,
+    action.CONTRACT,
+    action.ACTION,
     Object.values(action.ARGS)
   );
 });
+
+export const initializationParams = defaultEncode(
+  ['string', 'string', 'address', 'address'],
+  Object.values(INITIALIZATION_PARAMS)
+);
+
+export const summon = async (
+  provider: providers.Web3Provider,
+  args: ArgType[]
+) => {
+  try {
+    const contract = new ethers.Contract(
+      FACTORY_ADDRESS,
+      LOCAL_CONTRACT.BAAL_FACTORY,
+      provider.getSigner()
+    );
+    await contract.functions.summonBaalAndSafe(...args);
+  } catch (error) {
+    // errors.forEach(console.error);
+    console.error(error);
+  }
+};
