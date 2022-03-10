@@ -2,6 +2,7 @@ import { TrashForm } from '../types/trashFormTypes';
 
 export const TRASH_SUMMON: TrashForm = {
   submitText: 'Summon Baal',
+  log: true,
   items: [
     { type: 'input', label: 'DAO Name', id: 'daoName' },
     { type: 'input', label: 'Share Token Name', id: 'tokenName' },

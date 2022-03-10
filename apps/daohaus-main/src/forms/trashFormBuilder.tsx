@@ -1,5 +1,6 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import styled from 'styled-components';
+import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 
 import { Field } from '../types/trashFormTypes';
 import { TrashForm } from '../types/trashFormTypes';
@@ -23,20 +24,31 @@ const FormContainer = styled.div`
 
 const TrashFormBuilder: FunctionComponent<{ form: TrashForm }> = (props) => {
   const { form } = props;
+  const { log, items } = form;
+  const formMethods = useForm();
+  const { watch } = formMethods;
+  const formValues = watch();
   const handleSubmit = () => {
     console.log('shit');
   };
+
+  useEffect(() => {
+    formValues && log && console.log(formValues);
+  }, [log, formValues]);
+
   return (
-    <FormContainer>
-      <form>
-        {form.items.map((field: Field) => (
-          <FieldFactory {...field} key={field.id} />
-        ))}
-        <button onClick={handleSubmit}>
-          {form.submitText || 'Submit Form'}
-        </button>
-      </form>
-    </FormContainer>
+    <FormProvider {...formMethods}>
+      <FormContainer>
+        <form>
+          {items.map((field: Field) => (
+            <FieldFactory {...field} key={field.id} />
+          ))}
+          <button onClick={handleSubmit}>
+            {form.submitText || 'Submit Form'}
+          </button>
+        </form>
+      </FormContainer>
+    </FormProvider>
   );
 };
 
@@ -67,25 +79,28 @@ const InputWrapper: FunctionComponent<Field> = ({ children, id, label }) => {
 
 const GenericInput: FunctionComponent<Field> = (props) => {
   const { id } = props;
+  const { register } = useFormContext();
   return (
     <InputWrapper {...props}>
-      <input id={id} />
+      <input id={id} {...register(id)} />
     </InputWrapper>
   );
 };
 const GenericTextArea: FunctionComponent<Field> = (props) => {
   const { id } = props;
+  const { register } = useFormContext();
   return (
     <InputWrapper {...props}>
-      <textarea id={id} rows={5} />
+      <textarea id={id} rows={5} {...register(id)} />
     </InputWrapper>
   );
 };
 const GenericCheckBox: FunctionComponent<Field> = (props) => {
   const { id } = props;
+  const { register } = useFormContext();
   return (
     <InputWrapper {...props}>
-      <input id={id} type="checkbox" checked />
+      <input id={id} type="checkbox" {...register(id)} defaultChecked={true} />
     </InputWrapper>
   );
 };

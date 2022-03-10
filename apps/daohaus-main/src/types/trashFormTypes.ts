@@ -7,4 +7,5 @@ export type Field = {
 export type TrashForm = {
   items: Field[];
   submitText?: string;
+  log?: boolean;
 };
