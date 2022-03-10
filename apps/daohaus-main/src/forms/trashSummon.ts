@@ -1,6 +1,7 @@
 import { TrashForm } from '../types/trashFormTypes';
 
 export const TRASH_SUMMON: TrashForm = {
+  submitText: 'Summon Baal',
   items: [
     { type: 'input', label: 'DAO Name', id: 'daoName' },
     { type: 'input', label: 'Share Token Name', id: 'tokenName' },
@@ -21,33 +22,33 @@ export const TRASH_SUMMON: TrashForm = {
     },
     // SHAMAN CONFIG
     {
-      type: 'input',
+      type: 'textarea',
       label: 'Shaman Addresses (address[])',
       id: 'shamanAddresses',
     },
     {
-      type: 'input',
+      type: 'textarea',
       label: 'Shaman Permissions (uint[])',
       id: 'shamanPermissions',
     },
     {
-      type: 'input',
+      type: 'textarea',
       label: 'Share Addresses (address[])',
       id: 'shareAddresses',
     },
     {
-      type: 'input',
-      label: 'Share Amounts (address[])',
+      type: 'textarea',
+      label: 'Share Amounts (uint[])',
       id: 'shareAmounts',
     },
     {
-      type: 'input',
+      type: 'textarea',
       label: 'Loot Addresses (address[])',
       id: 'lootAddresses',
     },
     {
-      type: 'input',
-      label: 'Loot Amounts (address[])',
+      type: 'textarea',
+      label: 'Loot Amounts (uint[])',
       id: 'lootAmounts',
     },
     { type: 'checkBox', label: 'Pause Loot', id: 'pauseLoot' },

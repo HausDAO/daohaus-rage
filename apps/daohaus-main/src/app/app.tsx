@@ -28,8 +28,8 @@ const App: React.FunctionComponent = () => {
   return (
     <div>
       <button onClick={handleClick}>Connect Wallet </button>
-      <button onClick={handleSummon}>RunTX</button>
-      {address && <div>`Connected: ${address}`</div>}
+      <button onClick={handleSummon}>Summon With Hardcoded Values</button>
+      {address && <div>Connected: {address}</div>}
       <TrashFormBuilder form={TRASH_SUMMON} />
     </div>
   );
