@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { WalletProvider } from '@raidguild/quiver';
 import App from './app/app';
-import { initializationActions } from './utils/summon';
+
 import { SUPPORTED_NETWORKS } from './utils/wallet';
 
 ReactDOM.render(
