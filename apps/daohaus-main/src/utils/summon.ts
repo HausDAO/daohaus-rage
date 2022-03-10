@@ -40,7 +40,14 @@ const GOVERNANCE_CONFIG = {
   ARGS: [
     defaultEncode(
       ['uint32', 'uint32', 'uint256', 'uint256', 'uint256', 'uint256'],
-      [10, 20, 50, 1, 2, 3]
+      Object.values({
+        VOTING_IN_SECONDS: 120,
+        GRACE_IN_SECONDS: 60,
+        PROPOSAL_OFFERING: 0,
+        QUORUM_PERCENT: 0,
+        SPONSOR_THRESHOLD: 2,
+        MINIMUM_RETENTION_PERCENT: 66,
+      })
     ),
   ],
 };
