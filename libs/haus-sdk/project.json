@@ -1,0 +1,34 @@
+{
+  "root": "libs/haus-sdk",
+  "sourceRoot": "libs/haus-sdk/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/haus-sdk/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/haus-sdk"],
+      "options": {
+        "jestConfig": "libs/haus-sdk/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/haus-sdk",
+        "tsConfig": "libs/haus-sdk/tsconfig.lib.json",
+        "packageJson": "libs/haus-sdk/package.json",
+        "main": "libs/haus-sdk/src/index.ts",
+        "assets": ["libs/haus-sdk/*.md"]
+      }
+    }
+  },
+  "tags": []
+}
