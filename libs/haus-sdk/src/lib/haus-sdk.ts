@@ -1,12 +1,3 @@
-export function hausSdk(): string {
-  return 'poopin';
-}
-
-// interface NetworkParams {
-//   provider: string;
-//   graphEndpoint: string;
-// }
-
 interface HausConfig {
   provider: string;
   graphUrl: string;
