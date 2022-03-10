@@ -6,7 +6,6 @@ import POSTER from '../abi/poster.json';
 export const LOCAL_CONTRACT = {
   BAAL,
   BAAL_FACTORY,
-  // GNOSIS_MULTISEND,
   LOOT_ERC20,
   POSTER,
 };
