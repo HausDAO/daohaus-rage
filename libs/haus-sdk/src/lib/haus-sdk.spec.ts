@@ -4,7 +4,7 @@ describe('hausSdk', () => {
   const params = {
     provider: 'yolo',
     graphUrl:
-      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-rinkeby',
+      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-rinkeby',
   };
   let haus: Haus;
 
@@ -18,9 +18,10 @@ describe('hausSdk', () => {
   });
 
   it('returns dao address', async () => {
-    const daoAddress = 'poopin';
+    const daoAddress = '0x01bdc8eb83282f2ea61bf3387b24a8e760411655';
+
     const res = await haus.getDao(daoAddress);
 
-    expect(res).toEqual(daoAddress);
+    expect(res.data.data.dao.id).toEqual(daoAddress);
   });
 });

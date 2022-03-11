@@ -1,3 +1,5 @@
+import axios, { AxiosResponse } from 'axios';
+
 interface HausConfig {
   provider: string;
   graphUrl: string;
@@ -21,8 +23,17 @@ class Haus {
     this.graphUrl = graphUrl;
   }
 
-  async getDao(daoAddress: string): Promise<string> {
-    return daoAddress;
+  async getDao(daoAddress: string): Promise<AxiosResponse> {
+    // try {
+    const res = await axios.post(this.graphUrl, {
+      query: `{dao(id: "${daoAddress}") {id}}`,
+    });
+
+    return res;
+    // } catch (error) {
+    //   console.error(error);
+    //   return error;
+    // }
   }
 }
 
