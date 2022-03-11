@@ -1,31 +1,31 @@
 import axios, { AxiosResponse } from 'axios';
 
-interface HausConfig {
+interface NetworkEndpoints {
   provider: string;
   graphUrl: string;
 }
 
-class Haus {
-  provider!: string;
-  graphUrl!: string;
+interface NetworkConfig {
+  [path: string]: NetworkEndpoints;
+}
 
-  static async create({ provider, graphUrl }: HausConfig): Promise<Haus> {
+class Haus {
+  networkConfig!: NetworkConfig;
+
+  static async create(networkConfig: NetworkConfig): Promise<Haus> {
     const hausSdk = new Haus();
-    await hausSdk.init({
-      provider,
-      graphUrl,
-    });
+    await hausSdk.init(networkConfig);
     return hausSdk;
   }
 
-  private async init({ provider, graphUrl }: HausConfig): Promise<void> {
-    this.provider = provider;
-    this.graphUrl = graphUrl;
+  private async init(networkConfig: NetworkConfig): Promise<void> {
+    this.networkConfig = networkConfig;
   }
 
-  async getDao(daoAddress: string): Promise<AxiosResponse> {
+  async getDao(daoAddress: string, networkId: string): Promise<AxiosResponse> {
+    // move out into a fetch function that returns error or data? or data or empty {}?
     // try {
-    const res = await axios.post(this.graphUrl, {
+    const res = await axios.post(this.networkConfig[networkId].graphUrl, {
       query: `{dao(id: "${daoAddress}") {id}}`,
     });
 
