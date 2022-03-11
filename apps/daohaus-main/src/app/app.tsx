@@ -18,10 +18,12 @@ const App: React.FunctionComponent = () => {
   };
 
   const handleSummon = async () => {
+    console.log('fired');
     const errors = args.filter((arg) => !isArgType(arg));
     if (!provider) return;
     if (errors) {
       errors.forEach((error) => console.error(error));
+      return;
     }
     summon(provider as providers.Web3Provider, args as ArgType[]);
   };

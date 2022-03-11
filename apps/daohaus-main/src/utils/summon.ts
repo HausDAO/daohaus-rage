@@ -4,6 +4,8 @@ import { ethers } from 'ethers';
 import { ArgType } from '../types/contract';
 
 import { providers } from 'ethers';
+import { isArrayString } from '../forms/formBuilderUtils';
+import { getNonce } from './general';
 
 const LOOT_SINGLETON_ADDRESS = '0xE4B40ea347Dffe40b5d0d562bF873d830C124643';
 const GNOSIS = {
@@ -21,8 +23,8 @@ const TEST = {
 const FACTORY_ADDRESS = '0x31C948A5Ad149853B211de025082b61573ef3979';
 
 const INITIALIZATION_PARAMS = {
+  SHARE_TOKEN_NAME: 'Rage Token',
   SHARE_TOKEN_SYMBOL: 'RAGE',
-  SHARE_TOKEN_ADDRESS: 'Rage Token',
   LOOT_SINGLETON: LOOT_SINGLETON_ADDRESS,
   MULTISEND_ADDRESS: GNOSIS.MULTISEND,
 };
@@ -120,6 +122,7 @@ export const summon = async (
   provider: providers.Web3Provider,
   args: ArgType[]
 ) => {
+  console.log('args', args);
   try {
     const contract = new ethers.Contract(
       FACTORY_ADDRESS,
@@ -131,4 +134,97 @@ export const summon = async (
     // errors.forEach(console.error);
     console.error(error);
   }
+};
+export type SummonFormData = {
+  daoName: string;
+  tokenName: string;
+  tokenSymbol: string;
+  votingPeriod: string;
+  gracePeriod: string;
+  newOffering: string;
+  quorum: string;
+  sponsorThreshold: string;
+  minRetention: string;
+  shamanAddresses: string;
+  shamanPermissions: string;
+  shareAddresses: string;
+  shareAmounts: string;
+  lootAddresses: string;
+  lootAmounts: string;
+  pauseLoot: string;
+  pauseShares: string;
+};
+
+export const expectArrayString = (str: string) =>
+  isArrayString(str) ? JSON.parse(str) : false;
+
+export const handleSummonArgs = (formValues: SummonFormData) => {
+  const initializationParams = defaultEncode(
+    ['string', 'string', 'address', 'address'],
+    [
+      formValues.tokenName,
+      formValues.tokenSymbol,
+      LOOT_SINGLETON_ADDRESS,
+      GNOSIS.MULTISEND,
+    ]
+  );
+  const initializationActions = [
+    { ...ADMIN_CONFIG, ARGS: [formValues.pauseShares, formValues.pauseLoot] },
+    {
+      ...GOVERNANCE_CONFIG,
+      ARGS: [
+        defaultEncode(
+          ['uint32', 'uint32', 'uint256', 'uint256', 'uint256', 'uint256'],
+          [
+            formValues.votingPeriod,
+            formValues.gracePeriod,
+            formValues.newOffering,
+            formValues.quorum,
+            formValues.sponsorThreshold,
+            formValues.minRetention,
+          ]
+        ),
+      ],
+    },
+    {
+      ...SHAMAN_CONFIG,
+      ARGS: [
+        expectArrayString(formValues.shamanAddresses) || [],
+        expectArrayString(formValues.shamanPermissions) || [],
+      ],
+    },
+    {
+      ...SHARES_CONFIG,
+      ARGS: [
+        expectArrayString(formValues.shareAddresses) || [],
+        expectArrayString(formValues.shareAmounts) || [],
+      ],
+    },
+    {
+      ...LOOT_CONFIG,
+      ARGS: [
+        expectArrayString(formValues.lootAddresses) || [],
+        expectArrayString(formValues.lootAmounts) || [],
+      ],
+    },
+    {
+      ...METADATA_CONFIG,
+      ARGS: [
+        POSTER_ADDRESS,
+        0, // value
+        safeEncodeHexFunction(LOCAL_CONTRACT.POSTER, 'post', [
+          JSON.stringify({ name: formValues.daoName }),
+          'daohaus.metadata.summoner',
+        ]),
+      ],
+    },
+  ].map((action) => {
+    return safeEncodeHexFunction(
+      action.CONTRACT,
+      action.ACTION,
+      Object.values(action.ARGS)
+    );
+  });
+
+  return [initializationParams, initializationActions, getNonce()];
 };

@@ -1,9 +1,14 @@
 import { FunctionComponent, useEffect } from 'react';
 import styled from 'styled-components';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
+import { useWallet } from '@raidguild/quiver';
+import { providers } from 'ethers';
 
 import { Field } from '../types/trashFormTypes';
 import { TrashForm } from '../types/trashFormTypes';
+import { handleSummonArgs, summon, SummonFormData } from '../utils/summon';
+import { ArgType } from '../types/contract';
+import { isArgType } from '../utils/abi';
 
 const FormContainer = styled.div`
   margin-top: 4rem;
@@ -22,14 +27,25 @@ const FormContainer = styled.div`
   }
 `;
 
+// SAGE, stricter typechecking
+
 const TrashFormBuilder: FunctionComponent<{ form: TrashForm }> = (props) => {
   const { form } = props;
   const { log, items } = form;
   const formMethods = useForm();
-  const { watch } = formMethods;
+  const { watch, handleSubmit } = formMethods;
   const formValues = watch();
-  const handleSubmit = () => {
-    console.log('shit');
+  const { provider } = useWallet();
+
+  const onSubmit = async (formValues: { [indes: string]: unknown }) => {
+    const summonArgs = handleSummonArgs(formValues as SummonFormData);
+    const errors = summonArgs.filter((arg) => !isArgType(arg));
+    if (!provider) return;
+    console.log('provider', provider);
+    if (errors) {
+      errors.forEach((error) => console.error(error));
+    }
+    await summon(provider as providers.Web3Provider, summonArgs as ArgType[]);
   };
 
   useEffect(() => {
@@ -43,7 +59,7 @@ const TrashFormBuilder: FunctionComponent<{ form: TrashForm }> = (props) => {
           {items.map((field: Field) => (
             <FieldFactory {...field} key={field.id} />
           ))}
-          <button onClick={handleSubmit}>
+          <button onClick={handleSubmit(onSubmit)} type="submit">
             {form.submitText || 'Submit Form'}
           </button>
         </form>
@@ -64,6 +80,9 @@ const FieldFactory: FunctionComponent<Field> = (props) => {
   }
   if (type === 'checkBox') {
     return <GenericCheckBox {...props} />;
+  }
+  if (type === 'listBox') {
+    return <ListBox {...props} />;
   }
   return null;
 };
@@ -98,9 +117,19 @@ const GenericTextArea: FunctionComponent<Field> = (props) => {
 const GenericCheckBox: FunctionComponent<Field> = (props) => {
   const { id } = props;
   const { register } = useFormContext();
+
   return (
     <InputWrapper {...props}>
-      <input id={id} type="checkbox" {...register(id)} defaultChecked={true} />
+      <input
+        id={id}
+        type="checkbox"
+        {...register(id)}
+        name={id}
+        defaultChecked={true}
+      />
     </InputWrapper>
   );
+};
+const ListBox: FunctionComponent<Field> = (props) => {
+  return <GenericTextArea {...props} />;
 };
