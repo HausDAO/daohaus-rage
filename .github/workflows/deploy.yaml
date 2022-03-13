@@ -1,0 +1,28 @@
+name: Ci branch
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+env:
+  NX_BASE: ${{ github.base_ref || github.ref~1 }}
+  NX_HEAD: ${{ github.head_ref || github.ref_name}}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - run: yarn install
+      - run: npm install -g nx
+      - name: Lint mono
+        run: nx affected lint
+      - name: Test mono
+        run: nx affected test
+      - name: Build mono
+        run: nx affected build
+      - name: Deploy mono
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: nx affected deploy

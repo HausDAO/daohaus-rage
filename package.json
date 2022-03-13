@@ -27,6 +27,7 @@
     "web3": "^1.7.1"
   },
   "devDependencies": {
+    "@alexkeating/nx-skynet": "^0.0.2",
     "@nrwl/cli": "13.7.3",
     "@nrwl/cypress": "13.7.3",
     "@nrwl/eslint-plugin-nx": "13.7.3",
