@@ -60,8 +60,8 @@
         "passWithNoTests": true
       }
     },
-    "test": {
-      "executor": "@alexkeating/nx-skynet:jest",
+    "deploy": {
+      "executor": "@alexkeating/nx-skynet:deploy",
       "options": {
         "uploadDir": "dist/apps/daohaus-main",
         "registrySeedVarName": "DAOHAUS_MAIN_SKYNET_SEED",
