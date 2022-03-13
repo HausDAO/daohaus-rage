@@ -15,11 +15,11 @@ jobs:
       - run: yarn install
       - run: npm install -g nx
       - name: Lint mono
-        run: nx affected:lint --base 'master'
+        run: nx affected:lint --base 'origin/master'
       - name: Test mono
-        run: nx affected:test --base 'master'
+        run: nx affected:test --base 'origin/master'
       - name: Build mono
-        run: nx affected:build --base 'master'
+        run: nx affected:build --base 'origin/master'
       - name: Deploy mono
         if: ${{ github.ref == 'refs/heads/master' }}
-        run: nx affected:deploy --base 'master~1'
+        run: nx affected:deploy --base 'origin/master~1'
