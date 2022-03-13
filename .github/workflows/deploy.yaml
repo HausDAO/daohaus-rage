@@ -1,9 +1,5 @@
 name: Ci branch
 
-on:
-  pull_request:
-    branches:
-      - 'master'
 env:
   NX_BASE: ${{ github.base_ref || github.ref~1 }}
   NX_HEAD: ${{ github.head_ref || github.ref_name}}
