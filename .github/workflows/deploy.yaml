@@ -16,8 +16,6 @@ jobs:
       - run: npm install -g nx
       - name: Lint mono
         run: nx affected:lint --base 'origin/master'
-      - name: Test mono
-        run: nx affected:test --base 'origin/master'
       - name: Build mono
         run: nx affected:build --base 'origin/master'
       - name: Deploy mono
