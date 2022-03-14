@@ -10,6 +10,8 @@ import { handleSummonArgs, summon, SummonFormData } from '../utils/summon';
 import { ArgType } from '../types/contract';
 import { isArgType } from '../utils/abi';
 
+import { LabelDemo } from '@daohaus-monorepo/daohaus-ui/src/lib/components';
+
 const FormContainer = styled.div`
   margin-top: 4rem;
   max-width: 30rem;
