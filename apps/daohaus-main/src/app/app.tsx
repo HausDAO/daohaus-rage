@@ -18,7 +18,6 @@ const App: React.FunctionComponent = () => {
   };
 
   const handleSummon = async () => {
-    console.log('fired');
     const errors = args.filter((arg) => !isArgType(arg));
     if (!provider) return;
     if (errors) {

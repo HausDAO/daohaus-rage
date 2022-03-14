@@ -2,7 +2,6 @@ import { TrashForm } from '../types/trashFormTypes';
 
 export const TRASH_SUMMON: TrashForm = {
   submitText: 'Summon Baal',
-  // log: true,
   items: [
     { type: 'input', label: 'DAO Name', id: 'daoName' },
     { type: 'input', label: 'Share Token Name', id: 'tokenName' },
@@ -21,7 +20,6 @@ export const TRASH_SUMMON: TrashForm = {
       label: 'Minimum Retention (whatever that means)',
       id: 'minRetention',
     },
-    // SHAMAN CONFIG
     {
       type: 'textarea',
       label: 'Shaman Addresses (address[])',
