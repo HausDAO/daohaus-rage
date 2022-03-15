@@ -10,7 +10,11 @@ import { handleSummonArgs, summon, SummonFormData } from '../utils/summon';
 import { ArgType } from '../types/contract';
 import { isArgType } from '../utils/abi';
 
-import { LabelDemo } from '@daohaus-monorepo/daohaus-ui/src/lib/components';
+// import * from '@daohaus-monorepo/daohaus-ui';
+
+// import { dogstring } from '@daohaus-monorepo/daohaus-ui';
+
+import { Label } from '@daohaus-monorepo/daohaus-ui';
 
 const FormContainer = styled.div`
   margin-top: 4rem;
@@ -32,6 +36,8 @@ const FormContainer = styled.div`
 // SAGE, stricter typechecking
 
 const TrashFormBuilder: FunctionComponent<{ form: TrashForm }> = (props) => {
+  // console.log('dogstring is: ', dogstring);
+
   const { form } = props;
   const { log, items } = form;
   const formMethods = useForm();
@@ -92,7 +98,7 @@ const FieldFactory: FunctionComponent<Field> = (props) => {
 const InputWrapper: FunctionComponent<Field> = ({ children, id, label }) => {
   return (
     <div className="input-wrapper">
-      <label htmlFor={id}>{label}</label>
+      <Label htmlFor={id}>{label}</Label>
       <div>{children}</div>
     </div>
   );
