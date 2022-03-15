@@ -18,10 +18,10 @@ const App: React.FunctionComponent = () => {
   };
 
   const handleSummon = async () => {
-    console.log('fired');
     const errors = args.filter((arg) => !isArgType(arg));
+    console.log('errors', errors);
     if (!provider) return;
-    if (errors) {
+    if (errors?.length) {
       errors.forEach((error) => console.error(error));
       return;
     }

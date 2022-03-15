@@ -45,6 +45,7 @@ const TrashFormBuilder: FunctionComponent<{ form: TrashForm }> = (props) => {
     if (errors) {
       errors.forEach((error) => console.error(error));
     }
+    console.log('summonArgs', summonArgs);
     await summon(provider as providers.Web3Provider, summonArgs as ArgType[]);
   };
 
