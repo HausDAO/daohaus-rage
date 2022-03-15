@@ -27,6 +27,7 @@
     "web3": "^1.7.1"
   },
   "devDependencies": {
+    "@alexkeating/nx-skynet": "^0.0.3",
     "@nrwl/cli": "13.7.3",
     "@nrwl/cypress": "13.7.3",
     "@nrwl/eslint-plugin-nx": "13.7.3",
@@ -36,6 +37,8 @@
     "@nrwl/tao": "13.7.3",
     "@nrwl/web": "13.7.3",
     "@nrwl/workspace": "13.7.3",
+    "@nxext/vite": "^13.2.4",
+    "@skynetlabs/skynet-nodejs": "^2.5.0",
     "@testing-library/react": "12.1.2",
     "@testing-library/react-hooks": "7.0.2",
     "@types/jest": "27.0.2",
