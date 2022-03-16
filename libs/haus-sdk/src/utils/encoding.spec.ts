@@ -1,4 +1,4 @@
-import * as HausUtils from './utils';
+import * as HausUtils from './encoding';
 
 describe('hausUtils', () => {
   it('exists', async () => {
