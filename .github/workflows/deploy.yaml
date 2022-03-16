@@ -20,4 +20,4 @@ jobs:
         run: nx affected:build --base 'origin/master'
       - name: Deploy mono
         if: ${{ github.ref == 'refs/heads/master' }}
-        run: nx affected:deploy --base 'origin/master~1'
+        run: nx affected --target deploy --base 'origin/master~1'
