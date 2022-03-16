@@ -59,6 +59,16 @@
         "jestConfig": "apps/daohaus-main/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "deploy": {
+      "executor": "@alexkeating/nx-skynet:deploy",
+      "options": {
+        "uploadDir": "dist/apps/daohaus-main",
+        "registrySeedVarName": "DAOHAUS_MAIN_SKYNET_SEED",
+        "registryDataKey": "skylink.txt",
+        "portalUrl": "https://skynetfree.net",
+        "skynetJwtVarName": "SKYNET_JWT"
+      }
     }
   },
   "tags": []

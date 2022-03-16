@@ -18,16 +18,6 @@
         "jestConfig": "libs/daohaus-ui/jest.config.js",
         "passWithNoTests": true
       }
-    },
-    "build": {
-      "executor": "@nxext/vite:build",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/daohaus-ui",
-        "configFile": "@nxext/vite/plugins/vite-package",
-        "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "entryFile": "src/index.ts"
-      }
     }
   }
 }

@@ -1,0 +1,25 @@
+name: Ci branch
+
+on: push
+
+env:
+  BASE: ${{ github.ref == 'refs/heads/master' && 'origin/master~1' || 'origin/master' }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - run: yarn install
+      - run: npm install -g nx
+      - name: Lint mono
+        run: nx affected:lint --base $BASE
+      - name: Build mono
+        run: nx affected:build --base $BASE
+      - name: Deploy mono
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: nx affected --target deploy --base $BASE
