@@ -19,7 +19,6 @@ jobs:
       - name: Lint mono
         run: nx affected:lint --base $BASE
       - name: Build mono
-        if: ${{ github.ref == 'refs/heads/master' }}
         run: nx affected:build --base $BASE
       - name: Deploy mono
         if: ${{ github.ref == 'refs/heads/master' }}
