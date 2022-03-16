@@ -3,7 +3,7 @@ name: Ci branch
 on: push
 
 env:
-  BASE: ${{ github.ref != 'refs/heads/master' && 'origin/master~1' || 'origin/master' }}
+  BASE: ${{ github.ref == 'refs/heads/master' && 'origin/master~1' || 'origin/master' }}
 jobs:
   build:
     runs-on: ubuntu-latest
