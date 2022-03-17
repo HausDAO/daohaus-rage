@@ -15,6 +15,7 @@ const App: React.FunctionComponent = () => {
 
   const handleSummon = async () => {
     const errors = args.filter((arg) => !isArgType(arg));
+
     if (!provider) return;
     if (errors?.length) {
       errors.forEach((error) => console.error(error));
@@ -25,6 +26,7 @@ const App: React.FunctionComponent = () => {
     //  that I am returning early if there are errors, and therefore
     //  am using ArgType[]?
     //  How do I do this without typecasting?
+
     summon(provider, args as ArgType[]);
   };
   return (
