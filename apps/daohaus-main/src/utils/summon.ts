@@ -2,12 +2,13 @@ import { LOCAL_CONTRACT } from '../data/contracts';
 import { ethers } from 'ethers';
 import { providers } from 'ethers';
 import { isArrayString } from '../forms/formBuilderUtils';
-import { getNonce } from './general';
+
 import {
   ArgType,
   KEYCHAIN,
   safeEncodeHexFunction,
   defaultEncode,
+  getNonce,
 } from '@daohaus/haus-sdk';
 
 const TEST = {

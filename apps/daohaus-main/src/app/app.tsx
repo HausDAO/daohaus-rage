@@ -2,10 +2,9 @@ import React from 'react';
 import { useWallet } from '@raidguild/quiver';
 import { summon } from '../utils/summon';
 import { initializationActions, initializationParams } from '../utils/summon';
-import { getNonce } from '../utils/general';
 import TrashFormBuilder from '../forms/trashFormBuilder';
 import { TRASH_SUMMON } from '../forms/trashSummon';
-import { ArgType, isArgType } from '@daohaus/haus-sdk';
+import { ArgType, isArgType, getNonce } from '@daohaus/haus-sdk';
 
 const args = [initializationParams, initializationActions, getNonce()];
 

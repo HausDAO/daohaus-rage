@@ -1,4 +1,3 @@
-// export const CHAIN = {
 type Dict = {
   [index: string]: string | number | Dict | [string | number | Dict];
 };
