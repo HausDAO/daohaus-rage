@@ -1,10 +1,14 @@
-import { styled } from '@stitches/react';
-import { redA } from '@radix-ui/colors';
-import * as LabelPrimitive from '@radix-ui/react-label';
 import { FunctionComponent } from 'react';
 
+import * as LabelPrimitive from '@radix-ui/react-label';
+
+import { styled } from '../../stitches.config';
+
 const StyledLabel = styled(LabelPrimitive.Root, {
-  color: redA.redA10,
+  fontFamily: '$body',
+  fontWeight: '$regular',
+  color: '$gray12',
+  fontSize: '$normal',
 });
 
 const Label: FunctionComponent<{ htmlFor: string }> = ({

@@ -8,6 +8,8 @@ import { ArgType } from '../types/contract';
 import { isArgType } from '../utils/abi';
 import TrashFormBuilder from '../forms/trashFormBuilder';
 import { TRASH_SUMMON } from '../forms/trashSummon';
+import { Button } from '@daohaus-monorepo/daohaus-ui';
+
 const args = [initializationParams, initializationActions, getNonce()];
 
 const App: React.FunctionComponent = () => {
@@ -29,8 +31,17 @@ const App: React.FunctionComponent = () => {
   };
   return (
     <div>
-      <button onClick={handleClick}>Connect Wallet </button>
-      <button onClick={handleSummon}>Summon With Hardcoded Values</button>
+      <Button
+        css={{
+          backgroundColor: 'blue',
+        }}
+        onClick={handleClick}
+      >
+        Connect Wallet{' '}
+      </Button>
+      <Button color="red" size="lg" onClick={handleSummon}>
+        Summon With Hardcoded Values
+      </Button>
       {address && <div>Connected: {address}</div>}
       <TrashFormBuilder form={TRASH_SUMMON} />
     </div>
