@@ -1,8 +1,5 @@
 import { NetworkConfig } from '@raidguild/quiver';
 
-export const attemptInjectedChainID = (): string =>
-  window?.ethereum?.chainId || '0x4';
-
 export const SUPPORTED_NETWORKS: NetworkConfig = {
   '0x1': {
     chainId: '0x1',
