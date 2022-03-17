@@ -1,11 +1,14 @@
 import { LOCAL_CONTRACT } from '../data/contracts';
-import { defaultEncode } from './abi';
 import { ethers } from 'ethers';
-
 import { providers } from 'ethers';
 import { isArrayString } from '../forms/formBuilderUtils';
 import { getNonce } from './general';
-import { ArgType, KEYCHAIN, safeEncodeHexFunction } from '@daohaus/haus-sdk';
+import {
+  ArgType,
+  KEYCHAIN,
+  safeEncodeHexFunction,
+  defaultEncode,
+} from '@daohaus/haus-sdk';
 
 const TEST = {
   NETWORK: '0x4',
