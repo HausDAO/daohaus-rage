@@ -3,10 +3,9 @@ import { useWallet } from '@raidguild/quiver';
 import { summon } from '../utils/summon';
 import { initializationActions, initializationParams } from '../utils/summon';
 import { getNonce } from '../utils/general';
-import { ArgType } from '../types/contract';
-import { isArgType } from '../utils/abi';
 import TrashFormBuilder from '../forms/trashFormBuilder';
 import { TRASH_SUMMON } from '../forms/trashSummon';
+import { ArgType, isArgType } from '@daohaus/haus-sdk';
 
 const args = [initializationParams, initializationActions, getNonce()];
 

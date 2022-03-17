@@ -1,5 +1,9 @@
 import { ethers } from 'ethers';
 import { ABI } from '../types/contract';
+import { isArray, isBoolean, isNumber, isString } from './general';
+
+export const isArgType = (item: unknown) =>
+  isBoolean(item) || isString(item) || isNumber(item) || isArray(item);
 
 export const defaultEncode = (
   typesArray: string[],

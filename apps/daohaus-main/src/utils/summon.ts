@@ -1,11 +1,11 @@
 import { LOCAL_CONTRACT } from '../data/contracts';
-import { defaultEncode, safeEncodeHexFunction } from './abi';
+import { defaultEncode } from './abi';
 import { ethers } from 'ethers';
 
 import { providers } from 'ethers';
 import { isArrayString } from '../forms/formBuilderUtils';
 import { getNonce } from './general';
-import { KEYCHAIN } from '@daohaus/haus-sdk';
+import { ArgType, KEYCHAIN, safeEncodeHexFunction } from '@daohaus/haus-sdk';
 
 const TEST = {
   NETWORK: '0x4',
@@ -108,7 +108,10 @@ export const initializationParams = defaultEncode(
   Object.values(INITIALIZATION_PARAMS)
 );
 
-export const summon = async (provider: providers.Web3Provider, args: Arg) => {
+export const summon = async (
+  provider: providers.Web3Provider,
+  args: ArgType[]
+) => {
   try {
     const contract = new ethers.Contract(
       KEYCHAIN.BAAL_FACTORY['0x2a'] as string,
