@@ -1,0 +1,23 @@
+{
+  "root": "libs/local-abis",
+  "sourceRoot": "libs/local-abis/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/local-abis/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/local-abis"],
+      "options": {
+        "jestConfig": "libs/local-abis/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

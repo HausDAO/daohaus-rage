@@ -4,6 +4,7 @@
     "daohaus-core": "apps/daohaus-core",
     "daohaus-main": "apps/daohaus-main",
     "daohaus-ui": "libs/daohaus-ui",
-    "haus-sdk": "libs/haus-sdk"
+    "haus-sdk": "libs/haus-sdk",
+    "local-abis": "libs/local-abis"
   }
 }

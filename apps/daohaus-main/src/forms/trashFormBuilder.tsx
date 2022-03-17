@@ -7,8 +7,7 @@ import { providers } from 'ethers';
 import { Field } from '../types/trashFormTypes';
 import { TrashForm } from '../types/trashFormTypes';
 import { handleSummonArgs, summon, SummonFormData } from '../utils/summon';
-import { ArgType } from '../types/contract';
-import { isArgType } from '../utils/abi';
+import { ArgType, isArgType } from '@daohaus/haus-sdk';
 
 const FormContainer = styled.div`
   margin-top: 4rem;
@@ -41,11 +40,9 @@ const TrashFormBuilder: FunctionComponent<{ form: TrashForm }> = (props) => {
     const summonArgs = handleSummonArgs(formValues as SummonFormData);
     const errors = summonArgs.filter((arg) => !isArgType(arg));
     if (!provider) return;
-    console.log('provider', provider);
     if (errors) {
       errors.forEach((error) => console.error(error));
     }
-    console.log('summonArgs', summonArgs);
     await summon(provider as providers.Web3Provider, summonArgs as ArgType[]);
   };
 
