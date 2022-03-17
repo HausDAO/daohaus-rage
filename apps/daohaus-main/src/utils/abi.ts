@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { ABI } from '../types/contract';
+import { ABI } from '@daohaus/haus-sdk';
 import { ErrorType } from '../types/general';
 import { isArray, isBoolean, isNumber, isString } from './general';
 

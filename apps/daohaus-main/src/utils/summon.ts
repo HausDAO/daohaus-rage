@@ -1,7 +1,6 @@
 import { LOCAL_CONTRACT } from '../data/contracts';
 import { defaultEncode, safeEncodeHexFunction } from './abi';
 import { ethers } from 'ethers';
-import { ArgType } from '../types/contract';
 
 import { providers } from 'ethers';
 import { isArrayString } from '../forms/formBuilderUtils';
@@ -109,11 +108,7 @@ export const initializationParams = defaultEncode(
   Object.values(INITIALIZATION_PARAMS)
 );
 
-export const summon = async (
-  provider: providers.Web3Provider,
-  args: ArgType[]
-) => {
-  console.log('args', args);
+export const summon = async (provider: providers.Web3Provider, args: Arg) => {
   try {
     const contract = new ethers.Contract(
       KEYCHAIN.BAAL_FACTORY['0x2a'] as string,
