@@ -43,6 +43,14 @@
         "style": "styled-components",
         "linter": "eslint"
       }
+    },
+    "@nxext/vite": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
     }
   },
   "defaultProject": "daohaus-main"

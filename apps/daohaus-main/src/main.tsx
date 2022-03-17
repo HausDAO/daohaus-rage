@@ -5,10 +5,6 @@ import { WalletProvider } from '@raidguild/quiver';
 import App from './app/app';
 import { SUPPORTED_NETWORKS } from './utils/wallet';
 
-import * as stuff from '@daohaus/haus-sdk';
-
-console.log('stuff', stuff);
-
 ReactDOM.render(
   <StrictMode>
     <BrowserRouter>

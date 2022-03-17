@@ -30,7 +30,7 @@
         }
       }
     },
-    "serve": {
+    "serve-summon": {
       "executor": "@nxext/vite:dev",
       "options": {
         "outputPath": "dist/apps/daohaus-main",

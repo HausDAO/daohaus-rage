@@ -26,6 +26,6 @@ export const KEYCHAIN: KeychainList = {
     '0x2a': '0xE4B40ea347Dffe40b5d0d562bF873d830C124643',
   },
   BAAL_FACTORY: {
-    '0x2a': '0xE4B40ea347Dffe40b5d0d562bF873d830C124643',
+    '0x2a': '0x31C948A5Ad149853B211de025082b61573ef3979',
   },
 };
