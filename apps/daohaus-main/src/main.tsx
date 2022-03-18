@@ -2,8 +2,8 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { WalletProvider } from '@raidguild/quiver';
+import { SUPPORTED_NETWORKS } from '@daohaus/haus-sdk';
 import App from './app/app';
-import { SUPPORTED_NETWORKS } from './utils/wallet';
 
 ReactDOM.render(
   <StrictMode>

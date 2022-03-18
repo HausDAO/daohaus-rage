@@ -1,5 +1,9 @@
+// import { LOCAL_ABI } from '@daohaus-monorepo/local-abis';
+import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
+
 import { ethers } from 'ethers';
-import { ABI } from '../types/contract';
+import { SubAction } from '../types/actions';
+import { ABI, ArgType } from '../types/contract';
 import { isArray, isBoolean, isNumber, isString } from './general';
 
 export const isArgType = (item: unknown) =>
@@ -15,7 +19,7 @@ export const defaultEncode = (
 export const safeEncodeHexFunction = (
   abi: ABI,
   fnName: string,
-  functionArgs: string[]
+  functionArgs: ArgType[]
 ): string | { error: boolean; message: string } => {
   try {
     if (!abi || !Array.isArray(functionArgs))
@@ -34,3 +38,14 @@ export const safeEncodeHexFunction = (
     };
   }
 };
+
+// export const collapseToCallData = (actions: SubAction[]) => actions?.map(action => );
+
+export const encodeMultiAction = (
+  abi: ABI,
+  fnName: string,
+  actions: SubAction[]
+) =>
+  safeEncodeHexFunction(abi, fnName, [
+    encodeMultiSend(actions as MetaTransaction[]),
+  ]);
