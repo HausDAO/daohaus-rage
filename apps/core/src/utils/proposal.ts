@@ -39,9 +39,9 @@ const MINT_SHARES = {
   NAME: 'mintShares',
   ARGS: [[TEST.SOME_GUY], [TEST.AMT]],
 };
-const SECONDS = {
-  WEEK: 604800,
-};
+// const SECONDS = {
+//   WEEK: 604800,
+// };
 
 // const SEND_FUNDS = Object.values({
 //   ABI: LOCAL_ABI.BAAL,
