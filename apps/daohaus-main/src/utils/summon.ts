@@ -1,4 +1,3 @@
-import { LOCAL_CONTRACT } from '../data/contracts';
 import { ethers } from 'ethers';
 import { providers } from 'ethers';
 import { isArrayString } from '../forms/formBuilderUtils';
@@ -10,6 +9,7 @@ import {
   defaultEncode,
   getNonce,
 } from '@daohaus/haus-sdk';
+import { LOCAL_ABI } from '@daohaus-monorepo/local-abis';
 
 const TEST = {
   NETWORK: '0x4',
@@ -23,7 +23,7 @@ const INITIALIZATION_PARAMS = {
   MULTISEND_ADDRESS: KEYCHAIN.GNOSIS_MULTISEND['0x2a'] as string,
 };
 const ADMIN_CONFIG = {
-  CONTRACT: LOCAL_CONTRACT.BAAL,
+  CONTRACT: LOCAL_ABI.BAAL,
   ACTION: 'setAdminConfig',
   ARGS: {
     PAUSE_SHARES: 'true',
@@ -31,7 +31,7 @@ const ADMIN_CONFIG = {
   },
 };
 const GOVERNANCE_CONFIG = {
-  CONTRACT: LOCAL_CONTRACT.BAAL,
+  CONTRACT: LOCAL_ABI.BAAL,
   ACTION: 'setGovernanceConfig',
   ARGS: [
     defaultEncode(
@@ -48,7 +48,7 @@ const GOVERNANCE_CONFIG = {
   ],
 };
 const SHAMAN_CONFIG = {
-  CONTRACT: LOCAL_CONTRACT.BAAL,
+  CONTRACT: LOCAL_ABI.BAAL,
   ACTION: 'setShamans',
   ARGS: {
     SHAMANS: [], //array of addresses
@@ -56,7 +56,7 @@ const SHAMAN_CONFIG = {
   },
 };
 const SHARES_CONFIG = {
-  CONTRACT: LOCAL_CONTRACT.BAAL,
+  CONTRACT: LOCAL_ABI.BAAL,
   ACTION: 'mintShares',
   ARGS: {
     TO: [TEST.JORD], //address array
@@ -64,7 +64,7 @@ const SHARES_CONFIG = {
   },
 };
 const LOOT_CONFIG = {
-  CONTRACT: LOCAL_CONTRACT.BAAL,
+  CONTRACT: LOCAL_ABI.BAAL,
   ACTION: 'mintLoot',
   ARGS: {
     TO: [TEST.JORD], //address array
@@ -73,7 +73,7 @@ const LOOT_CONFIG = {
 };
 
 const METADATA = safeEncodeHexFunction(
-  LOCAL_CONTRACT.POSTER,
+  LOCAL_ABI.POSTER,
   'post',
   Object.values({
     JSON: JSON.stringify({ name: 'Salty Nonce DAO' }),
@@ -81,7 +81,7 @@ const METADATA = safeEncodeHexFunction(
   })
 );
 const METADATA_CONFIG = {
-  CONTRACT: LOCAL_CONTRACT.BAAL,
+  CONTRACT: LOCAL_ABI.BAAL,
   ACTION: 'executeAsBaal',
   ARGS: {
     TO: KEYCHAIN.POSTER['0x2a'],
@@ -119,7 +119,7 @@ export const summon = async (
   try {
     const contract = new ethers.Contract(
       KEYCHAIN.BAAL_FACTORY['0x2a'] as string,
-      LOCAL_CONTRACT.BAAL_FACTORY,
+      LOCAL_ABI.BAAL_FACTORY,
       provider.getSigner()
     );
     await contract.functions.summonBaalAndSafe(...args);
@@ -205,7 +205,7 @@ export const handleSummonArgs = (formValues: SummonFormData) => {
       ARGS: [
         KEYCHAIN.POSTER['0x2a'],
         0, // value
-        safeEncodeHexFunction(LOCAL_CONTRACT.POSTER, 'post', [
+        safeEncodeHexFunction(LOCAL_ABI.POSTER, 'post', [
           JSON.stringify({ name: formValues.daoName }),
           'daohaus.metadata.summoner',
         ]),
