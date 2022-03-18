@@ -31,17 +31,8 @@ const App: React.FunctionComponent = () => {
   };
   return (
     <div>
-      <Button
-        css={{
-          backgroundColor: 'blue',
-        }}
-        onClick={handleClick}
-      >
-        Connect Wallet{' '}
-      </Button>
-      <Button color="red" size="lg" onClick={handleSummon}>
-        Summon With Hardcoded Values
-      </Button>
+      <Button onClick={handleClick}>Connect Wallet </Button>
+      <Button onClick={handleSummon}>Summon With Hardcoded Values</Button>
       {address && <div>Connected: {address}</div>}
       <TrashFormBuilder form={TRASH_SUMMON} />
     </div>

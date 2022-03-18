@@ -1,5 +1,5 @@
 import { createStitches } from '@stitches/react';
-import { red, yellow, gray } from '@radix-ui/colors';
+import { blue, gray, red, yellow } from '@radix-ui/colors';
 
 export const {
   styled,
@@ -13,12 +13,14 @@ export const {
 } = createStitches({
   theme: {
     colors: {
+      ...blue,
       ...gray,
       ...red,
       ...yellow,
     },
     fonts: {
       body: 'Mulish, sans-serif',
+      data: 'Space, monospace',
     },
     fontWeights: {
       regular: '400',

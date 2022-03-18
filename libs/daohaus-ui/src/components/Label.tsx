@@ -7,7 +7,7 @@ import { styled } from '../../stitches.config';
 const StyledLabel = styled(LabelPrimitive.Root, {
   fontFamily: '$body',
   fontWeight: '$regular',
-  color: '$gray12',
+  color: '$gray1',
   fontSize: '$normal',
 });
 

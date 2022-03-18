@@ -12,22 +12,16 @@ import { Field } from '../types/trashFormTypes';
 import InputWrapper from './InputWrapper';
 
 const StyledCheckBox = styled(CheckboxPrimitive.Root, {
-  all: 'unset',
-  backgroundColor: 'white',
-  width: 25,
-  height: 25,
-  borderColor: '$gray11',
-  borderRadius: 4,
-  display: 'flex',
+  backgroundColor: 'transparent',
+  border: '.1rem solid $gray1',
+  width: '2.5rem',
+  height: '2.5rem',
   alignItems: 'center',
   justifyContent: 'center',
-  boxShadow: `0 2px 10px $red5`,
-  '&:hover': { backgroundColor: '$red5' },
-  '&:focus': { boxShadow: `0 0 0 2px $red5` },
 });
 
 const StyledIndicator = styled(CheckboxPrimitive.Indicator, {
-  color: '$gray11',
+  color: '$yellow7',
 });
 
 const GenericCheckBox: FunctionComponent<Field> = (props) => {
@@ -36,7 +30,7 @@ const GenericCheckBox: FunctionComponent<Field> = (props) => {
 
   return (
     <InputWrapper {...props}>
-      <StyledCheckBox id={id} {...register(id)} name={id} defaultChecked={true}>
+      <StyledCheckBox id={id} {...register(id)} name={id}>
         <StyledIndicator>
           <CheckIcon />
         </StyledIndicator>
