@@ -6,9 +6,7 @@ type RouterParams = {
   chainID?: string;
 };
 
-const fetchDAO = () => {
-  
-}
+// const fetchDAO = () => {};
 
 const Dao = () => {
   const { daoID, chainID }: RouterParams = useParams();
@@ -17,11 +15,8 @@ const Dao = () => {
   useEffect(() => {
     let shouldUpdate = true;
     if (!daoID || !chainID) return;
-    const getDAO = async () => {
-      
-    }
-    
-    
+    // const getDAO = async () => {};
+
     return () => {
       shouldUpdate = false;
     };
