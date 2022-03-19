@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { providers } from 'ethers';
-import { isArrayString } from '../forms/formBuilderUtils';
+import { isArrayString } from '@daohaus/haus-sdk';
 
 import {
   ArgType,

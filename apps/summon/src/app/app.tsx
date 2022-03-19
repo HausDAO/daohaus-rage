@@ -2,7 +2,7 @@ import React from 'react';
 import { useWallet } from '@raidguild/quiver';
 
 import { initializationActions, initializationParams } from '../utils/summon';
-import { TRASH_SUMMON } from '../forms/trashSummon';
+import { TRASH_SUMMON } from '@daohaus/haus-sdk';
 import { ArgType, isArgType, getNonce } from '@daohaus/haus-sdk';
 import { Button, FormBuilder } from '@daohaus-monorepo/daohaus-ui';
 import { providers } from 'ethers';

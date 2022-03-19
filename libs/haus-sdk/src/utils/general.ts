@@ -19,3 +19,10 @@ export const isObject = (item: unknown) =>
 
 export const isErrorType = (item: unknown) =>
   item && typeof item === 'object' && 'error' in item && 'message' in item;
+export const isArrayString = (string: string) => {
+  try {
+    return Array.isArray(JSON.parse(string));
+  } catch (error) {
+    return false;
+  }
+};

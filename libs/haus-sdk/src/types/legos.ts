@@ -3,7 +3,6 @@ export type Field = {
   label: string;
   type: string;
 };
-
 export type TrashForm = {
   items: Field[];
   submitText?: string;

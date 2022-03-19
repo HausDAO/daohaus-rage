@@ -1,4 +1,4 @@
-import { TrashForm } from '../types/trashFormTypes';
+import { TrashForm } from '../types/legos';
 
 export const TRASH_SUMMON: TrashForm = {
   submitText: 'Summon Baal',
