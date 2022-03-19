@@ -2,7 +2,7 @@
   "version": 2,
   "projects": {
     "core": "apps/core",
-    "daohaus-main": "apps/daohaus-main",
+    "summon": "apps/summon",
     "daohaus-ui": "libs/daohaus-ui",
     "haus-sdk": "libs/haus-sdk",
     "local-abis": "libs/local-abis"

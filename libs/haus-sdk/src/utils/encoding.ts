@@ -1,13 +1,13 @@
-// import { LOCAL_ABI } from '@daohaus-monorepo/local-abis';
 import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
 
 import { ethers } from 'ethers';
+import { ErrorType } from '..';
 import { SubAction } from '../types/actions';
 import { ABI, ArgType } from '../types/contract';
 import { isArray, isBoolean, isNumber, isString } from './general';
 
 export const isArgType = (item: unknown) =>
-  isBoolean(item) || isString(item) || isNumber(item) || isArray(item);
+  isString(item) || isNumber(item) || isBoolean(item) || isArray(item);
 
 export const defaultEncode = (
   typesArray: string[],
@@ -20,7 +20,7 @@ export const safeEncodeHexFunction = (
   abi: ABI,
   fnName: string,
   functionArgs: ArgType[]
-): string | { error: boolean; message: string } => {
+): string | ErrorType => {
   try {
     if (!abi || !Array.isArray(functionArgs))
       throw new Error(
