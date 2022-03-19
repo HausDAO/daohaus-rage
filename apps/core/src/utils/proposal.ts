@@ -1,37 +1,17 @@
-//  function submitProposal(
-//      bytes calldata proposalData,
-//      uint32 expiration,
-//      string calldata details
-//  )
-// const selfTransferAction = encodeMultiAction(
-//   abi. multisend,
-//   data: hexCode,
-//   to: address,
-//   value: 0,
-//   operation: 0,
-// );
-// proposal = {
-//   flag: 0,
-//   account: summoner.address,
-//   data: selfTransferAction,
-//   details: 'all hail baal',
-//   expiration: 0,
-// };
-
+import { ethers, providers } from 'ethers';
 import { LOCAL_ABI } from '@daohaus-monorepo/local-abis';
 import {
   encodeMultiAction,
   safeEncodeHexFunction,
   SubAction,
+  toBaseUnits,
 } from '@daohaus/haus-sdk';
-import { ethers } from 'ethers';
-import { providers } from 'ethers';
 
 const TEST = {
   SOME_GUY: '0xDE6bcde54CF040088607199FC541f013bA53C21E',
   AMT: 100,
   DAO: '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364',
-  PROPOSAL_TYPE: 'Test Proposal',
+  PROPOSAL_TYPE: 'Free Shit Proposal',
 };
 
 const MINT_SHARES = {
@@ -39,15 +19,6 @@ const MINT_SHARES = {
   NAME: 'mintShares',
   ARGS: [[TEST.SOME_GUY], [TEST.AMT]],
 };
-// const SECONDS = {
-//   WEEK: 604800,
-// };
-
-// const SEND_FUNDS = Object.values({
-//   ABI: LOCAL_ABI.BAAL,
-//   NAME: 'mintShares',
-//   ARGS: [['to'], ['amount']],
-// });
 
 const PROPOSAL_MULTICALL_DATA: SubAction[] = [
   {
@@ -68,23 +39,71 @@ const proposaDetails = JSON.stringify({
   link: 'https://www.twistedchickentenders.com/',
   proposalType: TEST.PROPOSAL_TYPE,
 });
-export const sendProposal = async (provider: providers.Web3Provider) => {
-  const proposalData = encodeMultiAction(
-    LOCAL_ABI.GNOSIS_MULTISEND,
-    'multiSend',
-    PROPOSAL_MULTICALL_DATA
-  );
+const proposalData = encodeMultiAction(
+  LOCAL_ABI.GNOSIS_MULTISEND,
+  'multiSend',
+  PROPOSAL_MULTICALL_DATA
+);
 
-  const args = [proposalData, 0, proposaDetails];
+const args = [proposalData, 0, proposaDetails];
+
+export const sendProposal = async (
+  provider: providers.Web3Provider,
+  contractArgs = args
+) => {
   try {
     const contract = new ethers.Contract(
       TEST.DAO,
       LOCAL_ABI.BAAL,
       provider.getSigner()
     );
-    console.log('contract', contract);
-    await contract.functions.submitProposal(...args);
+    await contract.functions.submitProposal(...contractArgs);
   } catch (error) {
     console.error(error);
   }
+};
+
+export const handleProposalArgs = (formValues: {
+  [index: string]: unknown;
+}) => {
+  const { title, description, sharesRequested, lootRequested, address } =
+    formValues;
+  console.log('formValues', formValues);
+  console.log('address', address);
+  const formattedShares = sharesRequested
+    ? toBaseUnits(sharesRequested as string)
+    : '0';
+  console.log('formattedShares', formattedShares);
+  const formattedLoot = lootRequested
+    ? toBaseUnits(lootRequested as string)
+    : '0';
+  console.log('formattedLoot', formattedLoot);
+  return [
+    encodeMultiAction(LOCAL_ABI.GNOSIS_MULTISEND, 'multiSend', [
+      {
+        to: TEST.DAO,
+        data: safeEncodeHexFunction(LOCAL_ABI.BAAL, 'mintShares', [
+          [address as string],
+          [formattedShares],
+        ]),
+        value: 0,
+        operation: 0,
+      },
+      {
+        to: TEST.DAO,
+        data: safeEncodeHexFunction(LOCAL_ABI.BAAL, 'mintLoot', [
+          [address as string],
+          [formattedLoot],
+        ]),
+        value: 0,
+        operation: 0,
+      },
+    ]),
+    0,
+    JSON.stringify({
+      title,
+      description,
+      proposalType: TEST.PROPOSAL_TYPE,
+    }),
+  ];
 };

@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { useWallet } from '@raidguild/quiver';
 
-import { sendProposal } from '../utils/proposal';
+import { handleProposalArgs, sendProposal } from '../utils/proposal';
 import { Button, FormBuilder } from '@daohaus-monorepo/daohaus-ui';
 import { TRASH_PROPOSAL_FORMS } from '@daohaus/haus-sdk';
 
@@ -13,15 +13,23 @@ const App: FunctionComponent = () => {
 
     sendProposal(provider);
   };
+  const formProposal = async (formValues: { [index: string]: unknown }) => {
+    if (!provider) return;
+
+    const proposalArgs = handleProposalArgs(formValues);
+    try {
+      sendProposal(provider, proposalArgs);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div>
       <Button onClick={connectWallet}>Connect Wallet </Button>
       {address && <div>Connected: {address}</div>}
       <Button onClick={handleTest}>Dummy Proposal</Button>
       <FormBuilder
-        onSubmit={() => {
-          console.log('fired');
-        }}
+        onSubmit={formProposal}
         form={TRASH_PROPOSAL_FORMS.FREE_LOAD}
       />
       {/* <Switch>
