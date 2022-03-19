@@ -1,30 +1,23 @@
 import { FunctionComponent, useEffect } from 'react';
-import styled from 'styled-components';
-import { useForm, FormProvider, useFormContext } from 'react-hook-form';
+// import styled from 'styled-components';
+import { useForm, FormProvider } from 'react-hook-form';
 import { useWallet } from '@raidguild/quiver';
 import { providers } from 'ethers';
 
-import { Field } from '../types/trashFormTypes';
-import { TrashForm } from '../types/trashFormTypes';
+import { Field, TrashForm } from '../types/trashFormTypes';
 import { handleSummonArgs, summon, SummonFormData } from '../utils/summon';
 import { ArgType, isArgType } from '@daohaus/haus-sdk';
 
-const FormContainer = styled.div`
-  margin-top: 4rem;
-  max-width: 30rem;
-  form {
-    width: 100%;
-  }
-  .input-wrapper {
-    margin-bottom: 2rem;
-    width: 100%;
-    input,
-    textarea,
-    label {
-      width: 100%;
-    }
-  }
-`;
+// import * from '@daohaus-monorepo/daohaus-ui';
+
+import {
+  Button,
+  FormContainer,
+  GenericCheckBox,
+  GenericInput,
+  GenericTextArea,
+  ListBox,
+} from '@daohaus-monorepo/daohaus-ui';
 
 // SAGE, stricter typechecking
 
@@ -53,14 +46,12 @@ const TrashFormBuilder: FunctionComponent<{ form: TrashForm }> = (props) => {
   return (
     <FormProvider {...formMethods}>
       <FormContainer>
-        <form>
-          {items.map((field: Field) => (
-            <FieldFactory {...field} key={field.id} />
-          ))}
-          <button onClick={handleSubmit(onSubmit)} type="submit">
-            {form.submitText || 'Submit Form'}
-          </button>
-        </form>
+        {items.map((field: Field) => (
+          <FieldFactory {...field} key={field.id} />
+        ))}
+        <Button onClick={handleSubmit(onSubmit)} type="submit">
+          {form.submitText || 'Submit Form'}
+        </Button>
       </FormContainer>
     </FormProvider>
   );
@@ -85,49 +76,66 @@ const FieldFactory: FunctionComponent<Field> = (props) => {
   return null;
 };
 
-const InputWrapper: FunctionComponent<Field> = ({ children, id, label }) => {
-  return (
-    <div className="input-wrapper">
-      <label htmlFor={id}>{label}</label>
-      <div>{children}</div>
-    </div>
-  );
-};
+// const FormContainer = styled.div`
+//   margin-top: 4rem;
+//   max-width: 30rem;
+//   form {
+//     width: 100%;
+//   }
+//   .input-wrapper {
+//     margin-bottom: 2rem;
+//     width: 100%;
+//     input,
+//     textarea,
+//     label {
+//       width: 100%;
+//     }
+//   }
+// `;
 
-const GenericInput: FunctionComponent<Field> = (props) => {
-  const { id } = props;
-  const { register } = useFormContext();
-  return (
-    <InputWrapper {...props}>
-      <input id={id} {...register(id)} />
-    </InputWrapper>
-  );
-};
-const GenericTextArea: FunctionComponent<Field> = (props) => {
-  const { id } = props;
-  const { register } = useFormContext();
-  return (
-    <InputWrapper {...props}>
-      <textarea id={id} rows={5} {...register(id)} />
-    </InputWrapper>
-  );
-};
-const GenericCheckBox: FunctionComponent<Field> = (props) => {
-  const { id } = props;
-  const { register } = useFormContext();
+// const InputWrapper: FunctionComponent<Field> = ({ children, id, label }) => {
+//   return (
+//     <div className="input-wrapper">
+//       <Label htmlFor={id}>{label}</Label>
+//       <div>{children}</div>
+//     </div>
+//   );
+// };
 
-  return (
-    <InputWrapper {...props}>
-      <input
-        id={id}
-        type="checkbox"
-        {...register(id)}
-        name={id}
-        defaultChecked={true}
-      />
-    </InputWrapper>
-  );
-};
-const ListBox: FunctionComponent<Field> = (props) => {
-  return <GenericTextArea {...props} />;
-};
+// const GenericInput: FunctionComponent<Field> = (props) => {
+//   const { id } = props;
+//   const { register } = useFormContext();
+//   return (
+//     <InputWrapper {...props}>
+//       <input id={id} {...register(id)} />
+//     </InputWrapper>
+//   );
+// };
+// const GenericTextArea: FunctionComponent<Field> = (props) => {
+//   const { id } = props;
+//   const { register } = useFormContext();
+//   return (
+//     <InputWrapper {...props}>
+//       <textarea id={id} rows={5} {...register(id)} />
+//     </InputWrapper>
+//   );
+// };
+// const GenericCheckBox: FunctionComponent<Field> = (props) => {
+//   const { id } = props;
+//   const { register } = useFormContext();
+
+//   return (
+//     <InputWrapper {...props}>
+//       <input
+//         id={id}
+//         type="checkbox"
+//         {...register(id)}
+//         name={id}
+//         defaultChecked={true}
+//       />
+//     </InputWrapper>
+//   );
+// };
+// const ListBox: FunctionComponent<Field> = (props) => {
+//   return <GenericTextArea {...props} />;
+// };

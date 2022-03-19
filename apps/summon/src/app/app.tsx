@@ -5,6 +5,7 @@ import { initializationActions, initializationParams } from '../utils/summon';
 import TrashFormBuilder from '../forms/trashFormBuilder';
 import { TRASH_SUMMON } from '../forms/trashSummon';
 import { ArgType, isArgType, getNonce } from '@daohaus/haus-sdk';
+import { Button } from '@daohaus-monorepo/daohaus-ui';
 
 const args = [initializationParams, initializationActions, getNonce()];
 
@@ -29,8 +30,8 @@ const App: React.FunctionComponent = () => {
   };
   return (
     <div>
-      <button onClick={connectWallet}>Connect Wallet </button>
-      <button onClick={handleSummon}>Summon With Hardcoded Values</button>
+      <Button onClick={connectWallet}>Connect Wallet </Button>
+      <Button onClick={handleSummon}>Summon With Hardcoded Values</Button>
       {address && <div>Connected: {address}</div>}
       <TrashFormBuilder form={TRASH_SUMMON} />
     </div>

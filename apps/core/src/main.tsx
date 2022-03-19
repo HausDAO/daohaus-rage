@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { WalletProvider } from '@raidguild/quiver';
 import App from './app/app';
 import { SUPPORTED_NETWORKS } from '@daohaus/haus-sdk';
+import './index.css';
 
 ReactDOM.render(
   <StrictMode>
