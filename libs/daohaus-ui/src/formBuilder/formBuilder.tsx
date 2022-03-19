@@ -1,23 +1,14 @@
 import { FunctionComponent, useEffect } from 'react';
-// import styled from 'styled-components';
 import { useForm, FormProvider } from 'react-hook-form';
+import { Button, FormContainer } from '..';
 import {
-  Button,
-  FormContainer,
-  GenericCheckBox,
-  GenericInput,
-  GenericTextArea,
-  ListBox,
-} from '..';
-import { Field, TrashForm } from '../types/trashFormTypes';
-
-// SAGE, stricter typechecking
-
-type FormValues = {
-  [index: string]: unknown;
-};
-type SubmitFormCallback = (formValues: FormValues) => void;
-type FieldFactory = { [index: string]: FunctionComponent<Field> };
+  Field,
+  FieldFactory,
+  FormValues,
+  SubmitFormCallback,
+  TrashForm,
+} from '../types/formTypes';
+import { FormFactory } from './formFactory';
 
 const FormBuilder: FunctionComponent<{
   form: TrashForm;
@@ -42,7 +33,7 @@ const FormBuilder: FunctionComponent<{
     <FormProvider {...formMethods}>
       <FormContainer>
         {items.map((field: Field) => (
-          <FieldFactory {...field} key={field.id} customFields={customFields} />
+          <FormFactory {...field} key={field.id} customFields={customFields} />
         ))}
         <Button onClick={handleSubmit(formSubmit)} type="submit">
           {form.submitText || 'Submit Form'}
@@ -53,22 +44,3 @@ const FormBuilder: FunctionComponent<{
 };
 
 export default FormBuilder;
-
-const coreFields: FieldFactory = {
-  input: GenericInput,
-  textarea: GenericTextArea,
-  checkBox: GenericCheckBox,
-  ListBox: ListBox,
-};
-
-const FieldFactory: FunctionComponent<
-  Field & { customFields?: FieldFactory }
-> = (props) => {
-  const type: keyof FieldFactory = props.type;
-  const { customFields } = props;
-  const SelectedField = customFields
-    ? { ...coreFields, ...customFields }[type]
-    : coreFields[type];
-
-  return SelectedField ? <SelectedField {...props} /> : null;
-};

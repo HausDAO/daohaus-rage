@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { styled } from '../../stitches.config';
 
-import { Field } from '../types/trashFormTypes';
+import { Field } from '../types/formTypes';
 
 import InputWrapper from './InputWrapper';
 

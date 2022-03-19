@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 
-import { Field } from '../types/trashFormTypes';
+import { Field } from '../types/formTypes';
 
 import GenericTextArea from './GenericTextArea';
 

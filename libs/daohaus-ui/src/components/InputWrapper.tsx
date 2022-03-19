@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { Field } from '../types/trashFormTypes';
+import { Field } from '../types/formTypes';
 import Label from './Label';
 
 const InputWrapper: FunctionComponent<Field> = ({ children, id, label }) => {
