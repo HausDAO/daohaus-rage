@@ -8,6 +8,7 @@ import GenericTextArea from './components/GenericTextArea';
 import InputWrapper from './components/InputWrapper';
 import Label from './components/Label';
 import ListBox from './components/ListBox';
+import FormBuilder from './formBuilder/formBuilder';
 
 export {
   Button,
@@ -18,4 +19,5 @@ export {
   InputWrapper,
   Label,
   ListBox,
+  FormBuilder,
 };

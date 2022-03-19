@@ -1,18 +1,20 @@
 import React from 'react';
 import { useWallet } from '@raidguild/quiver';
-import { summon } from '../utils/summon';
+
 import { initializationActions, initializationParams } from '../utils/summon';
-import TrashFormBuilder from '../forms/trashFormBuilder';
 import { TRASH_SUMMON } from '../forms/trashSummon';
 import { ArgType, isArgType, getNonce } from '@daohaus/haus-sdk';
-import { Button } from '@daohaus-monorepo/daohaus-ui';
+import { Button, FormBuilder } from '@daohaus-monorepo/daohaus-ui';
+import { providers } from 'ethers';
+
+import { handleSummonArgs, summon, SummonFormData } from '../utils/summon';
 
 const args = [initializationParams, initializationActions, getNonce()];
 
 const App: React.FunctionComponent = () => {
   const { address, connectWallet, provider } = useWallet();
 
-  const handleSummon = async () => {
+  const staticSummon = async () => {
     const errors = args.filter((arg) => !isArgType(arg));
 
     if (!provider) return;
@@ -28,12 +30,22 @@ const App: React.FunctionComponent = () => {
 
     summon(provider, args as ArgType[]);
   };
+
+  const formSummon = async (formValues: { [indes: string]: unknown }) => {
+    const summonArgs = handleSummonArgs(formValues as SummonFormData);
+    const errors = summonArgs.filter((arg) => !isArgType(arg));
+    if (!provider) return;
+    if (errors) {
+      errors.forEach((error) => console.error(error));
+    }
+    await summon(provider as providers.Web3Provider, summonArgs as ArgType[]);
+  };
   return (
     <div>
       <Button onClick={connectWallet}>Connect Wallet </Button>
-      <Button onClick={handleSummon}>Summon With Hardcoded Values</Button>
+      <Button onClick={staticSummon}>Summon With Hardcoded Values</Button>
       {address && <div>Connected: {address}</div>}
-      <TrashFormBuilder form={TRASH_SUMMON} />
+      <FormBuilder form={TRASH_SUMMON} onSubmit={formSummon} />
     </div>
   );
 };
