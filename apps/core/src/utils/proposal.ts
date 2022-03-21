@@ -66,18 +66,16 @@ export const sendProposal = async (
 export const handleProposalArgs = (formValues: {
   [index: string]: unknown;
 }) => {
+  console.log('formValues', formValues);
   const { title, description, sharesRequested, lootRequested, address } =
     formValues;
-  console.log('formValues', formValues);
-  console.log('address', address);
   const formattedShares = sharesRequested
     ? toBaseUnits(sharesRequested as string)
     : '0';
-  console.log('formattedShares', formattedShares);
   const formattedLoot = lootRequested
     ? toBaseUnits(lootRequested as string)
     : '0';
-  console.log('formattedLoot', formattedLoot);
+
   return [
     encodeMultiAction(LOCAL_ABI.GNOSIS_MULTISEND, 'multiSend', [
       {
