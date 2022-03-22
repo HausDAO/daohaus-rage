@@ -17,6 +17,17 @@
         "jestConfig": "libs/local-abis/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/local-abis",
+        "tsConfig": "libs/haus-sdk/tsconfig.lib.json",
+        "packageJson": "libs/local-abis/package.json",
+        "main": "libs/local-abis/src/index.ts",
+        "assets": ["libs/local-abis/*.md"]
+      }
     }
   },
   "tags": []

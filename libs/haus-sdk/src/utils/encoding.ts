@@ -1,9 +1,13 @@
+import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
+
 import { ethers } from 'ethers';
-import { ABI } from '../types/contract';
+import { ErrorType } from '..';
+import { SubAction } from '../types/actions';
+import { ABI, ArgType } from '../types/contract';
 import { isArray, isBoolean, isNumber, isString } from './general';
 
 export const isArgType = (item: unknown) =>
-  isBoolean(item) || isString(item) || isNumber(item) || isArray(item);
+  isString(item) || isNumber(item) || isBoolean(item) || isArray(item);
 
 export const defaultEncode = (
   typesArray: string[],
@@ -15,8 +19,8 @@ export const defaultEncode = (
 export const safeEncodeHexFunction = (
   abi: ABI,
   fnName: string,
-  functionArgs: string[]
-): string | { error: boolean; message: string } => {
+  functionArgs: ArgType[]
+): string | ErrorType => {
   try {
     if (!abi || !Array.isArray(functionArgs))
       throw new Error(
@@ -34,3 +38,14 @@ export const safeEncodeHexFunction = (
     };
   }
 };
+
+// export const collapseToCallData = (actions: SubAction[]) => actions?.map(action => );
+
+export const encodeMultiAction = (
+  abi: ABI,
+  fnName: string,
+  actions: SubAction[]
+) =>
+  safeEncodeHexFunction(abi, fnName, [
+    encodeMultiSend(actions as MetaTransaction[]),
+  ]);
