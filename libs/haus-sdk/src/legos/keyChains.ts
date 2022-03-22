@@ -29,6 +29,6 @@ export const KEYCHAIN: KeychainList = {
     '0x4': '0x31C948A5Ad149853B211de025082b61573ef3979',
   },
   V3_SUBGRAPH: {
-    '0x4': '',
+    '0x4': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-rinkeby',
   },
 };

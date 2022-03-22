@@ -7,7 +7,7 @@ import {
   toBaseUnits,
 } from '@daohaus/haus-sdk';
 
-const TEST = {
+export const TEST = {
   SOME_GUY: '0xDE6bcde54CF040088607199FC541f013bA53C21E',
   AMT: 100,
   DAO: '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364',
