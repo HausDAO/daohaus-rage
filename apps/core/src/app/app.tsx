@@ -1,13 +1,18 @@
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { useWallet } from '@raidguild/quiver';
-
-import { handleProposalArgs, sendProposal, TEST } from '../utils/proposal';
-import { Button, FormBuilder } from '@daohaus-monorepo/daohaus-ui';
-import { TRASH_PROPOSAL_FORMS } from '@daohaus/haus-sdk';
-import { DAO_PROPOSALS, simpleFetch } from '../utils/theGraph';
+import { providers } from 'ethers';
 import styled from 'styled-components';
 import { Link, Route, Switch, useParams } from 'react-router-dom';
-import { providers } from 'ethers';
+
+import { TRASH_PROPOSAL_FORMS } from '@daohaus/haus-sdk';
+import { Button, FormBuilder } from '@daohaus-monorepo/daohaus-ui';
+import { handleProposalArgs, sendProposal, TEST } from '../utils/proposal';
+import {
+  DAO_PROPOSALS,
+  proposalResolver,
+  simpleFetch,
+  startAppClock,
+} from '../utils/theGraph';
 
 type Proposal = {
   details: string;
@@ -58,22 +63,37 @@ const ProposalListContainer = styled.div`
 
 const daoID = TEST.DAO;
 const chainID = '0x4';
+
 const App: FunctionComponent = () => {
   const { address, connectWallet, provider } = useWallet();
   const [proposals, setProposals] = useState<null | []>(null);
+  const [lastTX, setLastTX] = useState<string>('');
 
   useEffect(() => {
-    let unsub = true;
+    let shouldUpdate = true;
+    const { unsub } = startAppClock({
+      setter: setLastTX,
+      shouldUpdate,
+    });
+    return () => {
+      shouldUpdate = false;
+      unsub();
+    };
+  }, []);
+
+  useEffect(() => {
+    let shouldUpdate = true;
     simpleFetch({
       setter: setProposals,
-      unsub,
+      shouldUpdate,
       query: DAO_PROPOSALS,
+      resolver: proposalResolver,
     });
 
     return () => {
-      unsub = false;
+      shouldUpdate = false;
     };
-  }, []);
+  }, [lastTX]);
   const handleTest = () => {
     if (!provider) return;
 
