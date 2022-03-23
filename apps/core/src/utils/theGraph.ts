@@ -1,42 +1,92 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { createClient } from 'urql';
+import { pipe, subscribe } from 'wonka';
+import { KEYCHAIN } from '@daohaus/haus-sdk';
+import { Dispatch, SetStateAction } from 'react';
+import { createClient, OperationResult } from 'urql';
+
+const url = KEYCHAIN.V3_SUBGRAPH['0x4'];
 
 const client = createClient({
-  url: 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-rinkeby',
+  url: url as string,
 });
 
 export const DAO_PROPOSALS = `
 {
-  daos (where: {id: "0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364"}){
-    metaData{
-      name
-    }
-    proposals{
-      details
-    }
+  proposals(
+    where: {dao:  "0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364"}
+      ) 
+  {
+    id
+    createdAt
+    createdBy
+    details
   }
-} 
+}
 `;
 
+export const APP_CLOCK = `
+{
+  eventTransactions(first: 1, 
+    orderBy: createdAt, orderDirection: desc) {
+    id
+    createdAt
+  }
+}
+`;
+
+type ReactSetter<T> = Dispatch<SetStateAction<T>>;
+
 type ReactThunk<T> = {
-  setter: Dispatch<SetStateAction<T>>;
-  unsub: boolean;
+  setter: ReactSetter<T>;
+  shouldUpdate: boolean;
   query: string;
+  resolver: (result: OperationResult) => T;
+};
+
+export const proposalResolver = (result: OperationResult) => {
+  return result?.data?.proposals;
 };
 
 export const simpleFetch = async <T>({
   setter,
-  unsub,
+  shouldUpdate,
   query,
+  resolver,
 }: ReactThunk<T>) => {
   try {
-    const res = await client.query(query).toPromise();
-    const proposals = res?.data?.daos?.[0]?.proposals;
-    if (proposals && unsub) {
-      console.log('proposals', proposals);
-      setter(proposals);
+    const client = createClient({
+      url: url as string,
+    });
+    const result = await client.query(query).toPromise();
+    const resolved = resolver(result);
+    if (resolved && shouldUpdate) {
+      console.log('resolved', resolved);
+      setter(resolved);
     }
   } catch (error) {
     console.error(error);
   }
+};
+export const { unsubscribe } = pipe(
+  client.query(DAO_PROPOSALS),
+  subscribe((result) => console.log(result))
+);
+export const startAppClock = <T>({
+  setter,
+  shouldUpdate,
+}: {
+  setter: ReactSetter<T>;
+  shouldUpdate: boolean;
+}) => {
+  const pollID = setInterval(() => {
+    console.log('tick');
+    simpleFetch({
+      setter,
+      shouldUpdate,
+      query: APP_CLOCK,
+      resolver: (result: OperationResult) =>
+        result?.data?.eventTransactions[0]?.id,
+    });
+  }, 10000);
+
+  return { unsub: () => clearInterval(pollID) };
 };
