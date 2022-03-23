@@ -37,6 +37,12 @@ class Haus {
 
   // TODO - when and how to handle errors - new rage
 
+  // default args
+  // resolver, list fields, where query, maybe sub entities
+  // ['id', 'createdAt']
+  // default queries === out needs 1st apps
+  // can swap
+
   async dao(args: { daoAddress: string; networkId: string }): Promise<Dao> {
     const res = await getDao(args.daoAddress, args.networkId);
     return res.data.data.dao;
@@ -68,7 +74,8 @@ class Haus {
 
   async latestTx(args: { networkId: string }): Promise<Dao> {
     const res = await getLatestTx(args.networkId);
-    return res.data.data.eventTransaction;
+
+    return res.data.data.eventTransactions[0];
   }
 
   async getByQuery(args: {

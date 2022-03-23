@@ -57,7 +57,7 @@ export const getLatestTx = async (
   networkId: string
 ): Promise<AxiosResponse> => {
   return await axios.post(ENDPOINTS.V3_SUBGRAPH[networkId], {
-    query: `{eventTransaction(first: 1, orderBy: createdAt, orderDirection: desc)) {id}}`,
+    query: `{eventTransactions(first: 1, orderBy: createdAt, orderDirection: desc) { id }}`,
   });
 };
 

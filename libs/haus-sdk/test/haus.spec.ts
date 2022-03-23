@@ -74,13 +74,21 @@ describe('hausSdk', () => {
       networkId,
     });
 
-    console.log('res', res);
-
     expect(res.id).toEqual(
       '0x067c7885df54e92884221b67901c3daeab3c6a1c-proposal-1'
     );
     expect(res.createdAt).toEqual('1647465504');
 
     expect(res.status).toEqual('Passed');
+  });
+
+  it('can fetch the latest tx', async () => {
+    const networkId = '0x4';
+
+    const res = await haus.latestTx({
+      networkId,
+    });
+
+    expect(res).toHaveProperty('id');
   });
 });
