@@ -20,7 +20,7 @@ describe('hausSdk', () => {
 
     const networkId = '0x4';
 
-    const res = await haus.getDao({ daoAddress, networkId });
+    const res = await haus.dao({ daoAddress, networkId });
 
     expect(res.id).toEqual(daoAddress);
   });
@@ -69,7 +69,7 @@ describe('hausSdk', () => {
     const proposalId = '0x067c7885df54e92884221b67901c3daeab3c6a1c-proposal-1';
     const networkId = '0x4';
 
-    const res = await haus.getProposal({
+    const res = await haus.proposal({
       proposalId,
       networkId,
     });

@@ -17,28 +17,25 @@ const getProposalStatus = (proposal: Proposal): string => {
 
   const now = new Date().getTime() / 1000;
   if (
-    Number(proposal.votingPeriodStarts) < now &&
-    Number(proposal.votingPeriodEnds) < now
+    Number(proposal.votingStarts) < now &&
+    Number(proposal.votingEnds) < now
   ) {
     return PROPOSAL_STATUSES.voting;
   }
-  if (
-    Number(proposal.votingPeriodEnds) < now &&
-    Number(proposal.gracePeriodEnds) < now
-  ) {
+  if (Number(proposal.votingEnds) < now && Number(proposal.graceEnds) < now) {
     return PROPOSAL_STATUSES.grace;
   }
 
   if (
     Number(proposal.expiration) > 0 &&
     Number(proposal.expiration) >
-      Number(proposal.votingPeriodEnds) + Number(proposal.gracePeriodEnds) + now
+      Number(proposal.votingEnds) + Number(proposal.graceEnds) + now
   ) {
     return PROPOSAL_STATUSES.expired;
   }
 
   if (
-    now > Number(proposal.gracePeriodEnds) &&
+    now > Number(proposal.graceEnds) &&
     Number(proposal.yesBalance) > Number(proposal.noBalance) &&
     !proposal.processed
   ) {
@@ -46,7 +43,7 @@ const getProposalStatus = (proposal: Proposal): string => {
   }
 
   if (
-    now > Number(proposal.gracePeriodEnds) &&
+    now > Number(proposal.graceEnds) &&
     Number(proposal.yesBalance) < Number(proposal.noBalance)
   ) {
     return PROPOSAL_STATUSES.failed;

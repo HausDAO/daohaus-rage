@@ -1,6 +1,13 @@
 import { Proposal } from '..';
 import { hydrateProposal } from './hydrators';
-import { getDaoReq, getProposalReq, getWithQuery } from './requests';
+import {
+  getDao,
+  getDaoBySummonTx,
+  getLatestTx,
+  getProposal,
+  getProposals,
+  getWithQuery,
+} from './requests';
 
 type KeyChain = {
   '0x4': string;
@@ -13,11 +20,6 @@ type QueryPair = {
 
 type Dao = {
   id: string;
-};
-
-type GetErrors = {
-  id?: string;
-  errors: string[];
 };
 
 class Haus {
@@ -33,17 +35,40 @@ class Haus {
     this.rpcEndpoints = rpcEndpoints;
   }
 
-  async getDao(args: {
+  // TODO - when and how to handle errors - new rage
+
+  async dao(args: { daoAddress: string; networkId: string }): Promise<Dao> {
+    const res = await getDao(args.daoAddress, args.networkId);
+    return res.data.data.dao;
+  }
+
+  async proposal(args: {
+    proposalId: string;
+    networkId: string;
+  }): Promise<Proposal> {
+    const res = await getProposal(args.proposalId, args.networkId);
+    return hydrateProposal(res.data.data.proposal);
+  }
+
+  async proposals(args: {
     daoAddress: string;
     networkId: string;
-  }): Promise<Dao | GetErrors> {
-    const res = await getDaoReq(args.daoAddress, args.networkId);
+  }): Promise<Proposal> {
+    const res = await getProposals(args.daoAddress, args.networkId);
+    return res.data.data.proposals.map((proposal) => hydrateProposal(proposal));
+  }
 
-    if (res.data.errors) {
-      return res.data.errors.map((e) => e.message);
-    } else {
-      return res.data.data.dao;
-    }
+  async daoBySummonTx(args: {
+    txHash: string;
+    networkId: string;
+  }): Promise<Dao> {
+    const res = await getDaoBySummonTx(args.txHash, args.networkId);
+    return res.data.data.dao;
+  }
+
+  async latestTx(args: { networkId: string }): Promise<Dao> {
+    const res = await getLatestTx(args.networkId);
+    return res.data.data.eventTransaction;
   }
 
   async getByQuery(args: {
@@ -51,35 +76,16 @@ class Haus {
     whereQuery: QueryPair;
     fields: string;
     networkId: string;
-  }): Promise<Dao[] | GetErrors> {
+    // TODO - how to type this when it can be any entity?
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }): Promise<any[]> {
     const res = await getWithQuery(
       args.entity,
       args.whereQuery,
       args.fields,
       args.networkId
     );
-
-    if (res.data.errors) {
-      return res.data.errors.map((e) => e.message);
-    } else {
-      return res.data.data.daos;
-    }
-  }
-
-  async getProposal(args: {
-    proposalId: string;
-    networkId: string;
-  }): Promise<Proposal> {
-    const res = await getProposalReq(args.proposalId, args.networkId);
-
-    console.log('res', res.data);
-
-    // how to handle errors
-    // if (res.data.errors) {
-    //   return res.data.errors.map((e) => e.message);
-    // } else {
-    // }
-    return hydrateProposal(res.data.data.proposal);
+    return res.data.data[args.entity];
   }
 }
 

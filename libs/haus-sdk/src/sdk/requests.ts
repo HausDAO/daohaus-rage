@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { ENDPOINTS } from '../constants';
+import { DAO_FIELDS, ENDPOINTS, PROPOSAL_FIELDS } from '../constants';
 
 type QueryPairs = {
   [field: string]: string;
@@ -17,21 +17,47 @@ const buildWhereString = (queryPairs: QueryPairs): string => {
   }, '');
 };
 
-export const getDaoReq = async (
+export const getDao = async (
   daoAddress: string,
   networkId: string
 ): Promise<AxiosResponse> => {
   return await axios.post(ENDPOINTS.V3_SUBGRAPH[networkId], {
-    query: `{dao(id: "${daoAddress}") {id}}`,
+    query: `{dao(id: "${daoAddress}") {${DAO_FIELDS}}}`,
   });
 };
 
-export const getProposalReq = async (
+export const getProposal = async (
   proposalId: string,
   networkId: string
 ): Promise<AxiosResponse> => {
   return await axios.post(ENDPOINTS.V3_SUBGRAPH[networkId], {
-    query: `{proposal(id: "${proposalId}") {id createdAt sponsored votingStarts votingEnds graceEnds expiration cancelled yesBalance noBalance processed actionFailed passed}}`,
+    query: `{proposal(id: "${proposalId}") {${PROPOSAL_FIELDS}}}`,
+  });
+};
+
+export const getProposals = async (
+  daoAddress: string,
+  networkId: string
+): Promise<AxiosResponse> => {
+  return await axios.post(ENDPOINTS.V3_SUBGRAPH[networkId], {
+    query: `{proposals(where: {dao: "${daoAddress}"}) {${PROPOSAL_FIELDS}}}`,
+  });
+};
+
+export const getDaoBySummonTx = async (
+  txHash: string,
+  networkId: string
+): Promise<AxiosResponse> => {
+  return await axios.post(ENDPOINTS.V3_SUBGRAPH[networkId], {
+    query: `{daos(where: {transactionHashSummon: "${txHash}"}) {${DAO_FIELDS}}}`,
+  });
+};
+
+export const getLatestTx = async (
+  networkId: string
+): Promise<AxiosResponse> => {
+  return await axios.post(ENDPOINTS.V3_SUBGRAPH[networkId], {
+    query: `{eventTransaction(first: 1, orderBy: createdAt, orderDirection: desc)) {id}}`,
   });
 };
 
