@@ -47,6 +47,9 @@ class Haus {
     return res;
 
     // how to deal with a resolver based on entity, pass from the client?
+    // this requires the client to know a lot about the entities/resolvers ect..
+    // maybe graphFetch is fully custom. can pass any resolver
+    // then we have some recipes
     // if (res.error) {
     //   return res;
     // } else {
