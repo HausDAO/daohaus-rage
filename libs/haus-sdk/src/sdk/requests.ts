@@ -1,9 +1,23 @@
 import axios, { AxiosResponse } from 'axios';
+import { createClient, OperationResult } from 'urql';
 
-import { DAO_FIELDS, ENDPOINTS, PROPOSAL_FIELDS } from '../constants';
+import { ENDPOINTS } from '../constants';
+import { DAO_FIELDS, PROPOSAL_FIELDS } from '../constants/queries';
 
 type QueryPairs = {
   [field: string]: string;
+};
+
+export const urqlFetch = async (args: {
+  networkId: string;
+  query: string;
+  variables: QueryPairs;
+}): Promise<OperationResult> => {
+  const client = createClient({
+    url: ENDPOINTS.V3_SUBGRAPH[args.networkId],
+  });
+
+  return await client.query(args.query, args.variables).toPromise();
 };
 
 const buildWhereString = (queryPairs: QueryPairs): string => {

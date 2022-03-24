@@ -1,3 +1,4 @@
+import { OperationResult } from 'urql';
 import { Proposal } from '..';
 import { hydrateProposal } from './hydrators';
 import {
@@ -7,11 +8,11 @@ import {
   getProposal,
   getProposals,
   getWithQuery,
+  urqlFetch,
 } from './requests';
 
 type KeyChain = {
-  '0x4': string;
-  '0x64': string;
+  [chainId: string]: string;
 };
 
 type QueryPair = {
@@ -25,23 +26,37 @@ type Dao = {
 class Haus {
   rpcEndpoints!: KeyChain;
 
-  static async create(networkConfig: KeyChain): Promise<Haus> {
+  static create(networkConfig: KeyChain): Haus {
     const hausSdk = new Haus();
-    await hausSdk.init(networkConfig);
+    hausSdk.init(networkConfig);
     return hausSdk;
   }
 
-  private async init(rpcEndpoints: KeyChain): Promise<void> {
+  private init(rpcEndpoints: KeyChain): void {
     this.rpcEndpoints = rpcEndpoints;
   }
 
-  // TODO - when and how to handle errors - new rage
+  // urql simple query
+  async graphFetch(args: {
+    networkId: string;
+    query: string;
+    variables: QueryPair;
+  }): Promise<OperationResult> {
+    const res = await urqlFetch(args);
 
-  // default args
-  // resolver, list fields, where query, maybe sub entities
-  // ['id', 'createdAt']
-  // default queries === out needs 1st apps
-  // can swap
+    return res;
+
+    // how to deal with a resolver based on entity, pass from the client?
+    // if (res.error) {
+    //   return res;
+    // } else {
+    // return hydrateProposal(proposal)
+    // }
+  }
+
+  // todo: 1) fetch all, 2) some more scoped dao, proposals, ect...
+
+  // Prescribed/named queries
 
   async dao(args: { daoAddress: string; networkId: string }): Promise<Dao> {
     const res = await getDao(args.daoAddress, args.networkId);
@@ -59,7 +74,7 @@ class Haus {
   async proposals(args: {
     daoAddress: string;
     networkId: string;
-  }): Promise<Proposal> {
+  }): Promise<Proposal[]> {
     const res = await getProposals(args.daoAddress, args.networkId);
     return res.data.data.proposals.map((proposal) => hydrateProposal(proposal));
   }
@@ -77,6 +92,8 @@ class Haus {
 
     return res.data.data.eventTransactions[0];
   }
+
+  // Query builder with axios
 
   async getByQuery(args: {
     entity: string;

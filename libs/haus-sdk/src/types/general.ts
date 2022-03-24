@@ -19,3 +19,12 @@ export type Proposal = {
   actionFailed: boolean;
   passed: boolean;
 };
+
+// could be many types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface FetchResult<Data = any> {
+  // could be an array or object... and be any type
+  data?: Data;
+  // todo better error types
+  error?: string;
+}
