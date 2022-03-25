@@ -23,7 +23,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/local-abis",
-        "tsConfig": "libs/haus-sdk/tsconfig.lib.json",
+        "tsConfig": "libs/local-abis/tsconfig.lib.json",
         "packageJson": "libs/local-abis/package.json",
         "main": "libs/local-abis/src/index.ts",
         "assets": ["libs/local-abis/*.md"]
