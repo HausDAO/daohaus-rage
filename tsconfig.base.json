@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@daohaus-monorepo/daohaus-ui": ["libs/daohaus-ui/src/index.ts"],
+      "@daohaus/ui": ["libs/daohaus-ui/src/index.ts"],
       "@daohaus-monorepo/local-abis": ["libs/local-abis/src/index.ts"],
       "@daohaus/haus-sdk": ["libs/haus-sdk/src/index.ts"]
     }
