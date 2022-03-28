@@ -9,7 +9,7 @@ import {
   defaultEncode,
   getNonce,
 } from '@daohaus/haus-sdk';
-import { LOCAL_ABI } from '@daohaus-monorepo/local-abis';
+import { LOCAL_ABI } from '@daohaus/local-abis';
 
 const TEST = {
   NETWORK: '0x4',
