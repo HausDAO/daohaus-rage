@@ -1,5 +1,5 @@
 import { ethers, providers } from 'ethers';
-import { LOCAL_ABI } from '@daohaus-monorepo/local-abis';
+import { LOCAL_ABI } from '@daohaus/local-abis';
 import {
   encodeMultiAction,
   safeEncodeHexFunction,
