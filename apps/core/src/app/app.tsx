@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link, Route, Switch, useParams } from 'react-router-dom';
 
 import { TRASH_PROPOSAL_FORMS } from '@daohaus/haus-sdk';
-import { Button, FormBuilder } from '@daohaus-monorepo/daohaus-ui';
+import { Button, FormBuilder } from '@daohaus/ui';
 import { handleProposalArgs, sendProposal, TEST } from '../utils/proposal';
 import {
   DAO_PROPOSALS,
