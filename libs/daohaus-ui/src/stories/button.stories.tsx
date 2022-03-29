@@ -4,7 +4,7 @@ import React from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Button from '../src/components/Button';
+import { Button } from '../components/Button';
 
 export default {
   /* 👇 The title prop is optional.
@@ -19,8 +19,16 @@ export default {
 const Template: ComponentStory<typeof Button> = () => <Button />;
 
 export const Primary = Template.bind({});
+export const Secondary = Template.bind({});
 
-Primary.args = {
-  primary: true,
-  label: 'Button',
-};
+// Primary.args = {
+//   primary: true,
+//   label: 'Button',
+// };
+
+// Secondary.args = {
+//   secondary: true,
+//   label: 'Button',
+// };
+
+//args match props
