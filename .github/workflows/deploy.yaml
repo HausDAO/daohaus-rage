@@ -22,4 +22,6 @@ jobs:
         run: nx affected:build --base $BASE
       - name: Deploy mono
         if: ${{ github.ref == 'refs/heads/master' }}
-        run: nx affected --target deploy --base $BASE
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${{secrets.OTP}}' > .npmrc
+          nx affected --target deploy --base $BASE --otp ${{ secrets.OTP }}

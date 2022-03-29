@@ -28,6 +28,13 @@
         "main": "libs/haus-sdk/src/index.ts",
         "assets": ["libs/haus-sdk/*.md"]
       }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "tag": "alpha",
+        "access": "public"
+      }
     }
   },
   "tags": []
