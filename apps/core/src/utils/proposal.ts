@@ -49,12 +49,14 @@ type ContentURI = {
   content: string | ContentURI[];
   [index: string]: unknown;
 };
+
 type ProposalDetails = {
   title: string;
   proposalType: ValueOf<typeof PROPOSAL_TYPES>;
   description?: string;
-  contentURI: ContentURI | undefined;
+  contentURI?: ContentURI;
 };
+
 const createProposalDetails = (detailsObject: ProposalDetails) =>
   JSON.stringify({
     ...detailsObject,
@@ -99,6 +101,7 @@ export const handleProposalArgs = (formValues: {
   console.log('formValues', formValues);
   const { title, description, sharesRequested, lootRequested, address } =
     formValues;
+
   const formattedShares = sharesRequested
     ? toBaseUnits(sharesRequested as string)
     : '0';
