@@ -6,7 +6,7 @@ import { TRASH_SUMMON } from '@daohaus/haus-sdk';
 import { ArgType, isArgType, getNonce } from '@daohaus/haus-sdk';
 import { Button, FormBuilder } from '@daohaus/ui';
 import { providers } from 'ethers';
-
+import * as Accordion from '@radix-ui/react-accordion';
 import { handleSummonArgs, summon, SummonFormData } from '../utils/summon';
 
 const args = [initializationParams, initializationActions, getNonce()];
@@ -46,6 +46,16 @@ const App: React.FunctionComponent = () => {
       <Button onClick={staticSummon}>Summon With Hardcoded Values</Button>
       {address && <div>Connected: {address}</div>}
       <FormBuilder form={TRASH_SUMMON} onSubmit={formSummon} />
+      <Accordion.Root type="single" defaultValue="test">
+        <Accordion.Item value="test">
+          <Accordion.Header>
+            <Accordion.Trigger>Fuck</Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content>
+            <h1>Test</h1>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
     </div>
   );
 };

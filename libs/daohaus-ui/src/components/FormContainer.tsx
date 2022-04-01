@@ -1,10 +1,6 @@
-import { blue } from '@radix-ui/colors/types/dark/blue';
-import { Label } from '@radix-ui/react-label';
 import { FunctionComponent } from 'react';
 
 import { styled } from '../stitches.config';
-import GenericInput from './GenericInput';
-import GenericTextArea from './GenericTextArea';
 
 const StyledFormContainer = styled('div', {
   marginTop: '4rem',
