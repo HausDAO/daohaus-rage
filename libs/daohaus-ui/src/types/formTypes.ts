@@ -5,6 +5,8 @@ export type Field = {
   label: string;
   type: string;
   placeholder?: string;
+  // switch to React Icon type
+  icon?: string;
 };
 
 export type TrashForm = {

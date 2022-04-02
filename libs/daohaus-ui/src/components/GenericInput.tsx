@@ -72,16 +72,18 @@ export const StyledInput = styled.input`
   }
 `;
 
+export const Input: FunctionComponent<typeof StyledInput | Field> = (props) => (
+  <StyledInput {...props} />
+);
+
 // With all the trimmings
 
-export const GenericInput: FunctionComponent<typeof StyledInput & Field> = (
-  props
-) => {
-  const { id } = props;
+export const GenericInput: FunctionComponent<Field> = (props) => {
+  const { id, label } = props;
   const { register } = useFormContext();
   return (
-    <InputWrapper {...props}>
-      <StyledInput {...register(id)} {...props} id={id} />
+    <InputWrapper id={id} label={label}>
+      <Input {...register(id)} {...props} />
     </InputWrapper>
   );
 };

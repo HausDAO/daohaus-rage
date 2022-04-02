@@ -1,8 +1,15 @@
 import { FunctionComponent } from 'react';
-import { Field } from '../types/formTypes';
 import Label from './Label';
 
-const InputWrapper: FunctionComponent<Field> = ({ children, id, label }) => {
+type WrapperProps = {
+  id: string;
+  label: string;
+};
+const InputWrapper: FunctionComponent<WrapperProps> = ({
+  children,
+  id,
+  label,
+}) => {
   return (
     <div className="input-wrapper">
       <Label htmlFor={id}>{label}</Label>

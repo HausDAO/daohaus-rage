@@ -2,18 +2,18 @@ import React from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { StyledInput } from '../components/GenericInput';
+import { Input } from '../components/GenericInput';
 
 export default {
   /* 👇 The title prop is optional.
    * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
    * to learn how to generate automatic titles
    */
-  title: 'Input (No Wrapper)',
-  component: StyledInput,
-} as ComponentMeta<typeof StyledInput>;
+  title: 'Input',
+  component: Input,
+} as ComponentMeta<typeof Input>;
 
-export const InputAtom: ComponentStory<typeof StyledInput> = () => (
-  <StyledInput />
+export const InputAtom: ComponentStory<typeof Input> = (props) => (
+  <Input placeholder="test" {...props} />
 );
 InputAtom.storyName = 'Input (No Wrapper)';
