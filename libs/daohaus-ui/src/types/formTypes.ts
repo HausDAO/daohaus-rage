@@ -4,6 +4,7 @@ export type Field = {
   id: string;
   label: string;
   type: string;
+  placeholder?: string;
 };
 
 export type TrashForm = {
