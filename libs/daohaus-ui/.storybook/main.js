@@ -1,5 +1,4 @@
 const rootMain = require('../../../.storybook/main');
-
 module.exports = {
   ...rootMain,
 
