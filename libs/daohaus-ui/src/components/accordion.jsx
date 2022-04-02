@@ -17,7 +17,6 @@ const slideUp = keyframes({
 const StyledAccordion = styled(AccordionPrimitive.Root, {
   borderRadius: '.4rem',
   width: '100%',
-  backgroundColor: 'transparent',
 });
 
 const StyledItem = styled(AccordionPrimitive.Item, {
@@ -65,7 +64,7 @@ const StyledTrigger = styled(AccordionPrimitive.Trigger, {
 const StyledContent = styled(AccordionPrimitive.Content, {
   overflow: 'hidden',
   fontSize: 15,
-
+  color: 'white',
   '&[data-state="open"]': {
     animation: `${slideDown} 300ms cubic-bezier(0.87, 0, 0.13, 1) forwards`,
   },
@@ -75,13 +74,16 @@ const StyledContent = styled(AccordionPrimitive.Content, {
 });
 const StyledContentText = styled('div', {
   padding: '15px 20px',
+  color: 'white',
 });
 
 const StyledChevron = styled(ChevronDownIcon, {
   transition: 'transform 300ms cubic-bezier(0.87, 0, 0.13, 1)',
   '[data-state=open] &': { transform: 'rotate(180deg)' },
 });
-export const Accordion = StyledAccordion;
+export const Accordion = (props) => {
+  return <StyledAccordion {...props} />;
+};
 export const AccordionItem = StyledItem;
 export const AccordionTrigger = React.forwardRef(
   ({ children, ...props }, forwardedRef) => (

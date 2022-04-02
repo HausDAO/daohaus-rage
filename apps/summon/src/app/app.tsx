@@ -2,11 +2,18 @@ import React from 'react';
 import { useWallet } from '@raidguild/quiver';
 
 import { initializationActions, initializationParams } from '../utils/summon';
-import { TRASH_SUMMON } from '@daohaus/haus-sdk';
+import { TRASH_PROPOSAL_FORMS, TRASH_SUMMON } from '@daohaus/haus-sdk';
 import { ArgType, isArgType, getNonce } from '@daohaus/haus-sdk';
-import { Button, FormBuilder } from '@daohaus/ui';
+import {
+  Button,
+  FormBuilder,
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@daohaus/ui';
 import { providers } from 'ethers';
-import * as Accordion from '@radix-ui/react-accordion';
+
 import { handleSummonArgs, summon, SummonFormData } from '../utils/summon';
 
 const args = [initializationParams, initializationActions, getNonce()];
@@ -46,16 +53,34 @@ const App: React.FunctionComponent = () => {
       <Button onClick={staticSummon}>Summon With Hardcoded Values</Button>
       {address && <div>Connected: {address}</div>}
       <FormBuilder form={TRASH_SUMMON} onSubmit={formSummon} />
-      <Accordion.Root type="single" defaultValue="test">
-        <Accordion.Item value="test">
-          <Accordion.Header>
-            <Accordion.Trigger>Fuck</Accordion.Trigger>
-          </Accordion.Header>
-          <Accordion.Content>
-            <h1>Test</h1>
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion.Root>
+      {/* <Accordion type="single" defaultValue="item-1" collapsible>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionContent>
+            <FormBuilder
+              form={TRASH_PROPOSAL_FORMS.FREE_LOAD}
+              onSubmit={() => {
+                console.log('submit');
+              }}
+            />
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-2">
+          <AccordionTrigger>Is it unstyled?</AccordionTrigger>
+          <AccordionContent>
+            Yes. It's unstyled by default, giving you freedom over the look and
+            feel.
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-3">
+          <AccordionTrigger>Can it be animated?</AccordionTrigger>
+          <AccordionContent>
+            Yes! You can animate the Accordion with CSS or JavaScript.
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion> */}
     </div>
   );
 };
