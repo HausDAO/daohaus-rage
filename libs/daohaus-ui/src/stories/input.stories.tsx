@@ -1,7 +1,5 @@
-import React from 'react';
-
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
+import { BsSearch } from 'react-icons/bs';
 import { Input } from '../components/GenericInput';
 
 export default {
@@ -13,7 +11,15 @@ export default {
   component: Input,
 } as ComponentMeta<typeof Input>;
 
-export const InputAtom: ComponentStory<typeof Input> = (props) => (
-  <Input placeholder="test" {...props} />
+export const InputAtom: ComponentStory<typeof Input> = (args) => (
+  <Input {...args} />
 );
+
 InputAtom.storyName = 'Input (No Wrapper)';
+InputAtom.args = {
+  placeholder: 'placeholder',
+};
+export const InputWithIcon: ComponentStory<typeof Input> = (args) => (
+  <Input {...args} icon={BsSearch} placeholder="With Icon" />
+);
+InputWithIcon.storyName = 'Input (With Icon)';
