@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
-import { FONT } from '../styles/global';
+import { BiErrorCircle } from 'react-icons/bi';
+import { COLOR, FONT } from '../styles/global';
 import { FunctionComponent } from 'react';
 
 export const ParMd = styled.p`
@@ -33,7 +34,13 @@ export const SuccessText: FunctionComponent = ({ children }) => (
 );
 export const ErrorText: FunctionComponent = ({ children }) => (
   <WithIcon className="guide-text">
-    <AiOutlineCheck size="1.2rem" />
-    <ParSm>{children}</ParSm>
+    <BiErrorCircle size="1.2rem" color={COLOR.ERROR} />
+    <ParSm style={{ color: COLOR.ERROR }}>{children}</ParSm>
+  </WithIcon>
+);
+export const WarningText: FunctionComponent = ({ children }) => (
+  <WithIcon className="guide-text">
+    <BiErrorCircle size="1.2rem" color={COLOR.WARNING} />
+    <ParSm style={{ color: COLOR.WARNING }}>{children}</ParSm>
   </WithIcon>
 );

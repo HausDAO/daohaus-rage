@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import Label from './Label';
-import { HelperText, SuccessText } from './typography';
+import { ErrorText, HelperText, SuccessText, WarningText } from './typography';
 
 type WrapperProps = {
   id: string;
@@ -9,6 +9,7 @@ type WrapperProps = {
   helperText?: string;
   successText?: string;
   errorText?: string;
+  warningText?: string;
 };
 
 const InputContainer = styled.div`
@@ -24,6 +25,7 @@ const InputWrapper: FunctionComponent<WrapperProps> = ({
   helperText,
   successText,
   errorText,
+  warningText,
 }) => {
   return (
     <InputContainer>
@@ -33,7 +35,8 @@ const InputWrapper: FunctionComponent<WrapperProps> = ({
         <HelperText className="guide-text">{helperText}</HelperText>
       )}
       {successText && <SuccessText>{successText}</SuccessText>}
-      {errorText && <SuccessText>{errorText}</SuccessText>}
+      {errorText && <ErrorText>{errorText}</ErrorText>}
+      {warningText && <WarningText>{warningText}</WarningText>}
     </InputContainer>
   );
 };

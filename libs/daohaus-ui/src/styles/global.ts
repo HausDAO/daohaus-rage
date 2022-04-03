@@ -5,7 +5,8 @@ export const COLOR = {
     500: 'rgba(255, 255, 255, 0.5)',
     600: 'rgba(255, 255, 255, 0.6)',
   },
-  WARNING: '#FE1D5B',
+  ERROR: '#FE1D5B',
+  WARNING: '#ED963A',
   STANDARD: '#FFFFFF',
   PLACE_HOLDER: 'rgba(255, 255, 255, 0.5)',
 };

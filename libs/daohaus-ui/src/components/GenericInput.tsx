@@ -43,7 +43,7 @@ export const Input: FunctionComponent<typeof StyledInput | InputComponent> = (
 };
 
 export const GenericInput: FunctionComponent<InputComponent> = (props) => {
-  const { id, label, helperText, successText, errorText } = props;
+  const { id, label, helperText, successText, errorText, warningText } = props;
   const { register } = useFormContext();
   return (
     <InputWrapper
@@ -52,6 +52,7 @@ export const GenericInput: FunctionComponent<InputComponent> = (props) => {
       helperText={helperText}
       successText={successText}
       errorText={errorText}
+      warningText={warningText}
     >
       <Input {...register(id)} {...props} />
     </InputWrapper>
