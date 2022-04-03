@@ -20,15 +20,3 @@ const Template: ComponentStory<typeof Button> = () => <Button />;
 
 export const Primary = Template.bind({});
 export const Secondary = Template.bind({});
-
-// Primary.args = {
-//   primary: true,
-//   label: 'Button',
-// };
-
-// Secondary.args = {
-//   secondary: true,
-//   label: 'Button',
-// };
-
-//args match props
