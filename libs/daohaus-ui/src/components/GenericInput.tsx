@@ -1,16 +1,64 @@
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 import { useFormContext } from 'react-hook-form';
-
+import { IconType } from 'react-icons';
 import styled from 'styled-components';
 import { FIELD } from '../styles/form';
-import { COLOR, FONT } from '../styles/global';
+import { FONT } from '../styles/global';
 
 import { Field } from '../types/formTypes';
 
 import InputWrapper from './InputWrapper';
 
-export const StyledInput = styled.input`
+type InputComponent = Field & {
+  icon?: IconType;
+  button?: FunctionComponent;
+};
+
+export const Input: FunctionComponent<typeof StyledInput | InputComponent> = (
+  props
+) => {
+  const { icon, long, button } = props;
+  const classes = classNames({ long });
+  if (icon) {
+    const Icon = icon;
+    return (
+      <WithIcon className={classes}>
+        <StyledInput {...props} className={classes} />
+        <Icon size="20px" className="appendIcon" />
+      </WithIcon>
+    );
+  }
+  if (button) {
+    const Button = button;
+    return (
+      <WithButton className={classes}>
+        <StyledInput {...props} className={classes} />
+        <Button />
+      </WithButton>
+    );
+  }
+
+  return <StyledInput {...props} className={classes} />;
+};
+
+export const GenericInput: FunctionComponent<InputComponent> = (props) => {
+  const { id, label, helperText, successText, errorText } = props;
+  const { register } = useFormContext();
+  return (
+    <InputWrapper
+      id={id}
+      label={label}
+      helperText={helperText}
+      successText={successText}
+      errorText={errorText}
+    >
+      <Input {...register(id)} {...props} />
+    </InputWrapper>
+  );
+};
+
+const StyledInput = styled.input`
   background-color: ${FIELD.BG_COLOR};
   color: ${FIELD.TEXT_COLOR};
   font-size: ${FIELD.FONT_SIZE};
@@ -47,32 +95,12 @@ const WithIcon = styled.div`
     top: 1.4rem;
     right: 2rem;
   }
+  &.long {
+    max-width: 52rem;
+  }
 `;
 
-export const Input: FunctionComponent<typeof StyledInput | Field> = (props) => {
-  const { icon, long } = props;
-
-  const classes = classNames({ long });
-  const Icon = icon;
-  return Icon ? (
-    <WithIcon>
-      <StyledInput {...props} className={classes} />
-      <Icon size="20px" className="appendIcon" />
-    </WithIcon>
-  ) : (
-    <StyledInput {...props} className={classes} />
-  );
-};
-// With all the trimmings
-
-export const GenericInput: FunctionComponent<Field> = (props) => {
-  const { id, label } = props;
-  const { register } = useFormContext();
-  return (
-    <InputWrapper id={id} label={label}>
-      <Input {...register(id)} {...props} />
-    </InputWrapper>
-  );
-};
-
+const WithButton = styled.div`
+  position: relative;
+`;
 export default GenericInput;

@@ -1,9 +1,39 @@
 import styled from 'styled-components';
+import { AiOutlineCheck } from 'react-icons/ai';
+import { FONT } from '../styles/global';
+import { FunctionComponent } from 'react';
 
-export const P = styled.p`
+export const ParMd = styled.p`
   font-size: 1.6rem;
   line-height: 2.4rem;
   letter-spacing: 0.8px;
-  color: white;
-  margin-bottom: 1.1rem;
 `;
+export const ParSm = styled.p`
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  letter-spacing: 1.2px;
+`;
+export const HelperText = styled(ParSm)`
+  color: ${FONT.COLOR_LOW_KEY};
+`;
+
+export const WithIcon = styled.div`
+  display: flex;
+  align-items: center;
+  p {
+    margin-left: 6.5px;
+  }
+`;
+
+export const SuccessText: FunctionComponent = ({ children }) => (
+  <WithIcon className="guide-text">
+    <AiOutlineCheck size="1.2rem" />
+    <HelperText>{children}</HelperText>
+  </WithIcon>
+);
+export const ErrorText: FunctionComponent = ({ children }) => (
+  <WithIcon className="guide-text">
+    <AiOutlineCheck size="1.2rem" />
+    <ParSm>{children}</ParSm>
+  </WithIcon>
+);

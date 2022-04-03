@@ -3,8 +3,9 @@ export const COLOR = {
     100: 'rgba(255, 255, 255, 0.1)',
     200: 'rgba(255, 255, 255, 0.2)',
     500: 'rgba(255, 255, 255, 0.5)',
+    600: 'rgba(255, 255, 255, 0.6)',
   },
-
+  WARNING: '#FE1D5B',
   STANDARD: '#FFFFFF',
   PLACE_HOLDER: 'rgba(255, 255, 255, 0.5)',
 };
@@ -24,4 +25,5 @@ export const FONT = {
   },
   COLOR: COLOR.STANDARD,
   COLOR_PLACE_HOLDER: COLOR.BG[500],
+  COLOR_LOW_KEY: COLOR.BG[600],
 };

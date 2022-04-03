@@ -14,7 +14,6 @@ export const InputAtom: ComponentStory<typeof Input> = (args) => (
 InputAtom.storyName = 'Input (No Wrapper)';
 InputAtom.args = {
   placeholder: 'Placeholder',
-  long: false,
 };
 export const InputWithIcon: ComponentStory<typeof Input> = (args) => (
   <Input {...args} icon={BsSearch} placeholder="With Icon" />

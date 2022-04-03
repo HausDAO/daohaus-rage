@@ -1,17 +1,17 @@
 import { FunctionComponent } from 'react';
-import { IconType } from 'react-icons';
+
 export type Field = {
   id: string;
   label: string;
   type: string;
   placeholder?: string;
   helperText?: string;
+  successText?: string;
   errorText?: string;
   warningText?: string;
-  icon?: IconType;
   error?: string;
   warning?: string;
-  long: boolean;
+  long?: boolean;
 };
 
 export type TrashForm = {
