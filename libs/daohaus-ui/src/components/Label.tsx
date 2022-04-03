@@ -1,15 +1,18 @@
+import classNames from 'classnames';
 import { FunctionComponent } from 'react';
+import { FONT } from '../styles/global';
+import styled from 'styled-components';
 
-import * as LabelPrimitive from '@radix-ui/react-label';
-
-import { styled } from '../stitches.config';
-
-const StyledLabel = styled(LabelPrimitive.Root, {
-  fontFamily: '$body',
-  fontWeight: '$regular',
-  color: '$gray1',
-  fontSize: '$normal',
-});
+const StyledLabel = styled.label`
+  font-size: ${FONT.SIZE.SM};
+  line-height: 2.4rem;
+  letter-spacing: 0.8px;
+  color: ${FONT.COLOR};
+  margin-bottom: 1.1rem;
+  display: block;
+  font-weight: 400;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
 
 const Label: FunctionComponent<{ htmlFor: string }> = ({
   htmlFor,
