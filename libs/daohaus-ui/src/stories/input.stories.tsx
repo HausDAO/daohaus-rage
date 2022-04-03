@@ -3,21 +3,18 @@ import { BsSearch } from 'react-icons/bs';
 import { Input } from '../components/GenericInput';
 
 export default {
-  /* 👇 The title prop is optional.
-   * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
-   * to learn how to generate automatic titles
-   */
   title: 'Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
 
 export const InputAtom: ComponentStory<typeof Input> = (args) => (
-  <Input {...args} />
+  <Input {...args} className="long" />
 );
 
 InputAtom.storyName = 'Input (No Wrapper)';
 InputAtom.args = {
-  placeholder: 'placeholder',
+  placeholder: 'Placeholder',
+  long: false,
 };
 export const InputWithIcon: ComponentStory<typeof Input> = (args) => (
   <Input {...args} icon={BsSearch} placeholder="With Icon" />

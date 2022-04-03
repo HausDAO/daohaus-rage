@@ -11,6 +11,7 @@ export type Field = {
   icon?: IconType;
   error?: string;
   warning?: string;
+  long: boolean;
 };
 
 export type TrashForm = {

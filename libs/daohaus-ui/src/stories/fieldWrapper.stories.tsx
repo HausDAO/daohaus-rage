@@ -20,6 +20,6 @@ export const FullInput: ComponentStory<typeof GenericInput> = (args) => {
 
 FullInput.storyName = 'With Input';
 FullInput.args = {
-  placeholder: 'placeholder',
+  placeholder: 'Placeholder',
   label: 'Label',
 };

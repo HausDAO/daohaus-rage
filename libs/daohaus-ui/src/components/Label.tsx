@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 import { FONT } from '../styles/global';
 import styled from 'styled-components';
@@ -6,7 +5,7 @@ import styled from 'styled-components';
 const StyledLabel = styled.label`
   font-size: ${FONT.SIZE.SM};
   line-height: 2.4rem;
-  letter-spacing: 0.8px;
+  letter-spacing: 1.2px;
   color: ${FONT.COLOR};
   margin-bottom: 1.1rem;
   display: block;

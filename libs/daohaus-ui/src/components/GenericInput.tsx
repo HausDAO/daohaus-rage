@@ -22,15 +22,19 @@ export const StyledInput = styled.input`
   width: 100%;
   border: none;
   border-radius: ${FIELD.BORDER_RADIUS};
-  letter-spacing: 0.8px;
+  letter-spacing: 1.2px;
   padding: 12px 18px;
   transition: ${FIELD.TRANSITION};
+
   ::placeholder {
     color: ${FONT.COLOR_PLACE_HOLDER};
   }
   :focus {
     background-color: ${FIELD.BG_COLOR_FOCUS};
     outline: none;
+  }
+  &.long {
+    max-width: 52rem;
   }
 `;
 
@@ -46,21 +50,17 @@ const WithIcon = styled.div`
 `;
 
 export const Input: FunctionComponent<typeof StyledInput | Field> = (props) => {
-  const { icon, error, warning } = props;
+  const { icon, long } = props;
+
+  const classes = classNames({ long });
   const Icon = icon;
   return Icon ? (
     <WithIcon>
-      <StyledInput
-        {...props}
-        className={classNames({
-          'input-error': error,
-          'input-warning': warning,
-        })}
-      />
+      <StyledInput {...props} className={classes} />
       <Icon size="20px" className="appendIcon" />
     </WithIcon>
   ) : (
-    <StyledInput {...props} />
+    <StyledInput {...props} className={classes} />
   );
 };
 // With all the trimmings
