@@ -1,70 +1,32 @@
+import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import styled from 'styled-components';
+import { FIELD } from '../styles/form';
+import { COLOR, FONT } from '../styles/global';
 
 import { Field } from '../types/formTypes';
 
 import InputWrapper from './InputWrapper';
 
-// common styles across all borders
-
-const BORDER = {
-  RADIUS: '0.4rem',
-};
-
-//  common styles across all fonts
-const FONT = {
-  SIZE: {
-    SM: '1.6rem',
-  },
-  FAMILY: {
-    BODY: 'Mulish',
-  },
-};
-
-//  common styles across all colors
-const COLOR = {
-  BG: {
-    100: 'rgba(255, 255, 255, 0.1)',
-    200: 'rgba(255, 255, 255, 0.2)',
-  },
-  TEXT: {
-    STANDARD: '#FFFFFF',
-    PLACE_HOLDER: 'rgba(255, 255, 255, 0.9)',
-  },
-};
-
-//  Common styles across all fields
-const FIELD = {
-  TEXT_COLOR: COLOR.TEXT.STANDARD,
-  BG_COLOR: COLOR.BG[100],
-  BG_COLOR_FOCUS: COLOR.BG[200],
-  BORDER_RADIUS: BORDER.RADIUS,
-  FONT_SIZE: FONT.SIZE.SM,
-  FONT_WEIGHT: '400',
-  LINE_HEIGHT: '2.4rem',
-  FONT: FONT.FAMILY.BODY,
-  TRANSITION: '0.2s all',
-};
-
 export const StyledInput = styled.input`
   background-color: ${FIELD.BG_COLOR};
   color: ${FIELD.TEXT_COLOR};
   font-size: ${FIELD.FONT_SIZE};
-  line-height: ${FIELD.LINE_HEIGHT};
-  font-weight: ${FIELD.FONT_WEIGHT};
-  font-family: ${FIELD.FONT};
+  line-height: 2.4rem;
+  font-weight: 400;
+  font-family: ${FONT.FAMILY.BODY};
   height: 4.8rem;
-  max-width: 28rem;
+  max-width: ${FIELD.SIZE.MD};
   width: 100%;
   border: none;
   border-radius: ${FIELD.BORDER_RADIUS};
-  letter-spacing: 1.2px;
+  letter-spacing: 0.8px;
   padding: 12px 18px;
   transition: ${FIELD.TRANSITION};
   ::placeholder {
-    color: ${COLOR.TEXT.PLACE_HOLDER};
+    color: ${FONT.COLOR_PLACE_HOLDER};
   }
   :focus {
     background-color: ${FIELD.BG_COLOR_FOCUS};
@@ -72,10 +34,35 @@ export const StyledInput = styled.input`
   }
 `;
 
-export const Input: FunctionComponent<typeof StyledInput | Field> = (props) => (
-  <StyledInput {...props} />
-);
+const WithIcon = styled.div`
+  position: relative;
+  width: 28rem;
+  svg {
+    position: absolute;
+    color: ${FIELD.ICON_COLOR};
+    top: 1.4rem;
+    right: 2rem;
+  }
+`;
 
+export const Input: FunctionComponent<typeof StyledInput | Field> = (props) => {
+  const { icon, error, warning } = props;
+  const Icon = icon;
+  return Icon ? (
+    <WithIcon>
+      <StyledInput
+        {...props}
+        className={classNames({
+          'input-error': error,
+          'input-warning': warning,
+        })}
+      />
+      <Icon size="20px" className="appendIcon" />
+    </WithIcon>
+  ) : (
+    <StyledInput {...props} />
+  );
+};
 // With all the trimmings
 
 export const GenericInput: FunctionComponent<Field> = (props) => {
