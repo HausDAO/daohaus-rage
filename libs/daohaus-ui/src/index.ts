@@ -9,12 +9,12 @@ import InputWrapper from './components/InputWrapper';
 import Label from './components/Label';
 import ListBox from './components/ListBox';
 import FormBuilder from './formBuilder/formBuilder';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from './components/accordion';
+// import {
+//   Accordion,
+//   AccordionItem,
+//   AccordionTrigger,
+//   AccordionContent,
+// } from './components/accordion';
 
 export {
   Button,
@@ -26,8 +26,8 @@ export {
   Label,
   ListBox,
   FormBuilder,
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+  // Accordion,
+  // AccordionContent,
+  // AccordionItem,
+  // AccordionTrigger,
 };

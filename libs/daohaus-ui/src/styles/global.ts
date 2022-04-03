@@ -1,4 +1,5 @@
 export const COLOR = {
+  BASE_BG: '#050A1B',
   BG: {
     100: 'rgba(255, 255, 255, 0.1)',
     200: 'rgba(255, 255, 255, 0.2)',
