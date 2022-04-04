@@ -4,15 +4,20 @@ import { providers } from 'ethers';
 import styled from 'styled-components';
 import { Link, Route, Switch, useParams } from 'react-router-dom';
 
-import { TRASH_PROPOSAL_FORMS } from '@daohaus/haus-sdk';
+import { DAO_PROPOSALS, TRASH_PROPOSAL_FORMS } from '@daohaus/haus-sdk';
 import { Button, FormBuilder } from '@daohaus/ui';
 import { handleProposalArgs, sendProposal, TEST } from '../utils/proposal';
 import {
-  DAO_PROPOSALS,
   proposalResolver,
   simpleFetch,
   startAppClock,
-} from '../utils/theGraph';
+} from '../utils/dataFetch';
+// import {
+//   DAO_PROPOSALS,
+//   proposalResolver,
+//   simpleFetch,
+//   startAppClock,
+// } from '../utils/theGraph';
 
 type Proposal = {
   details: string;
@@ -87,6 +92,7 @@ const App: FunctionComponent = () => {
       setter: setProposals,
       shouldUpdate,
       query: DAO_PROPOSALS,
+      variables: { dao: '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364' },
       resolver: proposalResolver,
     });
 
