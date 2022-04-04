@@ -26,6 +26,8 @@ type Dao = {
 class Haus {
   rpcEndpoints!: KeyChain;
 
+  // methodTwo = HausUtils.prototype.methodTwo;
+
   static create(networkConfig: KeyChain): Haus {
     const hausSdk = new Haus();
     hausSdk.init(networkConfig);
