@@ -45,6 +45,8 @@ export const DAO_PROPOSALS = `
   query proposals($dao: String!) {
     proposals(
       where: {dao: $dao}
+      orderBy: createdAt
+      orderDirection: desc 
     ) {
       ${PROPOSAL_FIELDS}
     }

@@ -1,5 +1,5 @@
 import { ethers, providers } from 'ethers';
-import { LOCAL_ABI } from '@daohaus-monorepo/local-abis';
+import { LOCAL_ABI } from '@daohaus/local-abis';
 import {
   encodeMultiAction,
   safeEncodeHexFunction,
@@ -34,9 +34,10 @@ const PROPOSAL_MULTICALL_DATA: SubAction[] = [
 ];
 
 const proposaDetails = JSON.stringify({
-  title: '20 Share Giveaway',
-  description: 'Give 20 share to some random address',
-  link: 'https://www.twistedchickentenders.com/',
+  title: '20 Share Giveaway w/ schema!',
+  description: 'Give 20 share to some random address w/ schema',
+  contentURI: 'https://www.twistedchickentenders.com/',
+  contentURIType: 'link',
   proposalType: TEST.PROPOSAL_TYPE,
 });
 const proposalData = encodeMultiAction(
@@ -57,6 +58,8 @@ export const sendProposal = async (
       LOCAL_ABI.BAAL,
       provider.getSigner()
     );
+
+    console.log('contractArgs', contractArgs);
     await contract.functions.submitProposal(...contractArgs);
   } catch (error) {
     console.error(error);
