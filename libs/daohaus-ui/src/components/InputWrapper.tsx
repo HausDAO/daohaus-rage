@@ -1,11 +1,16 @@
 import { FunctionComponent } from 'react';
+import { BiErrorCircle } from 'react-icons/bi';
 import styled from 'styled-components';
+import { COLOR } from '../styles/global';
+import { Field } from '../types/formTypes';
 import Label from './Label';
+import Tooltip from './tooltip';
 import { ErrorText, HelperText, SuccessText, WarningText } from './typography';
 
 type WrapperProps = {
   id: string;
   label: string;
+  info: string;
   helperText?: string;
   successText?: string;
   errorText?: string;
@@ -14,11 +19,23 @@ type WrapperProps = {
 
 const InputContainer = styled.div`
   .guide-text {
-    margin-top: 1.1rem;
+    margin-top: 11px;
   }
 `;
 
-const InputWrapper: FunctionComponent<WrapperProps> = ({
+const TopSection = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 11px;
+  label {
+    margin-right: 8px;
+  }
+  svg {
+    transform: translateY(1px);
+  }
+`;
+
+const InputWrapper: FunctionComponent<Field> = ({
   children,
   id,
   label,
@@ -26,10 +43,14 @@ const InputWrapper: FunctionComponent<WrapperProps> = ({
   successText,
   errorText,
   warningText,
+  info,
 }) => {
   return (
     <InputContainer>
-      <Label htmlFor={id}>{label}</Label>
+      <TopSection>
+        <Label htmlFor={id}>{label}</Label>
+        {info && <Tooltip content={info} />}
+      </TopSection>
       <div>{children}</div>
       {helperText && (
         <HelperText className="guide-text">{helperText}</HelperText>

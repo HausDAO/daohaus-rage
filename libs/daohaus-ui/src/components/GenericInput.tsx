@@ -43,17 +43,10 @@ export const Input: FunctionComponent<typeof StyledInput | InputComponent> = (
 };
 
 export const GenericInput: FunctionComponent<InputComponent> = (props) => {
-  const { id, label, helperText, successText, errorText, warningText } = props;
+  const { id } = props;
   const { register } = useFormContext();
   return (
-    <InputWrapper
-      id={id}
-      label={label}
-      helperText={helperText}
-      successText={successText}
-      errorText={errorText}
-      warningText={warningText}
-    >
+    <InputWrapper {...props}>
       <Input {...register(id)} {...props} />
     </InputWrapper>
   );
@@ -74,7 +67,6 @@ const StyledInput = styled.input`
   letter-spacing: 1.2px;
   padding: 12px 18px;
   transition: ${FIELD.TRANSITION};
-
   ::placeholder {
     color: ${FONT.COLOR_PLACE_HOLDER};
   }

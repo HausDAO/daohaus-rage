@@ -9,6 +9,7 @@ export const COLOR = {
   ERROR: '#FE1D5B',
   WARNING: '#ED963A',
   STANDARD: '#FFFFFF',
+  INFO: '#F2CF63',
   PLACE_HOLDER: 'rgba(255, 255, 255, 0.5)',
 };
 // common styles across all borders

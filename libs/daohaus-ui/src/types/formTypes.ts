@@ -6,6 +6,8 @@ export type Field = {
   type: string;
   placeholder?: string;
   helperText?: string;
+  required?: boolean;
+  info?: string;
   successText?: string;
   errorText?: string;
   warningText?: string;
