@@ -67,6 +67,7 @@ const StyledInput = styled.input`
   letter-spacing: 1.2px;
   padding: 12px 18px;
   transition: ${FIELD.TRANSITION};
+
   ::placeholder {
     color: ${FONT.COLOR_PLACE_HOLDER};
   }

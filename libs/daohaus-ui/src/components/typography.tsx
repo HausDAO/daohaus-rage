@@ -14,6 +14,7 @@ export const ParSm = styled.p`
   line-height: 1.8rem;
   letter-spacing: 1.2px;
 `;
+
 export const HelperText = styled(ParSm)`
   color: ${FONT.COLOR_LOW_KEY};
 `;
