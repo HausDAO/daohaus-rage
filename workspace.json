@@ -4,6 +4,7 @@
     "core": "apps/core",
     "daohaus-ui": "libs/daohaus-ui",
     "haus-sdk": "libs/haus-sdk",
+    "haus-parlor": "libs/haus-parlor",
     "haus-sdk-rage": "libs/haus-sdk-rage",
     "local-abis": "libs/local-abis",
     "summon": "apps/summon"
