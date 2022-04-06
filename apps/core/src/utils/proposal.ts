@@ -42,34 +42,32 @@ const PROPOSAL_MULTICALL_DATA: SubAction[] = [
   },
 ];
 
-type ValueOf<T> = T[keyof T];
+// type ValueOf<T> = T[keyof T];
 
-type ContentURI = {
-  type: ValueOf<typeof CONTENT_TYPES>;
-  content: string | ContentURI[];
-  [index: string]: unknown;
-};
+// type ContentURI = {
+//   type: ValueOf<typeof CONTENT_TYPES>;
+//   content: string | ContentURI[];
+//   [index: string]: unknown;
+// };
 
-type ProposalDetails = {
-  title: string;
-  proposalType: ValueOf<typeof PROPOSAL_TYPES>;
-  description?: string;
-  contentURI?: ContentURI;
-};
+// type ProposalDetails = {
+//   title: string;
+//   proposalType: ValueOf<typeof PROPOSAL_TYPES>;
+//   description?: string;
+//   contentURI?: ContentURI;
+// };
 
-const createProposalDetails = (detailsObject: ProposalDetails) =>
-  JSON.stringify({
-    ...detailsObject,
-    contentURI: JSON.stringify(detailsObject.contentURI),
-  });
+// const createProposalDetails = (detailsObject: ProposalDetails) =>
+//   JSON.stringify({
+//     ...detailsObject,
+//     contentURI: JSON.stringify(detailsObject.contentURI),
+//   });
 
-const proposaDetails = createProposalDetails({
-  title: '20 Share Giveaway',
-  description: 'Give 20 share to some random address',
-  contentURI: {
-    type: CONTENT_TYPES.LINK,
-    content: 'https://www.twistedchickentenders.com/',
-  },
+const proposaDetails = JSON.stringify({
+  title: '20 Share Giveaway w/ schema!',
+  description: 'Give 20 share to some random address w/ schema',
+  contentURI: 'https://www.twistedchickentenders.com/',
+  contentURIType: 'link',
   proposalType: PROPOSAL_TYPES.FREE,
 });
 const proposalData = encodeMultiAction(
@@ -89,6 +87,8 @@ export const sendProposal = async (
       LOCAL_ABI.BAAL,
       provider.getSigner()
     );
+
+    console.log('contractArgs', contractArgs);
     await contract.functions.submitProposal(...contractArgs);
   } catch (error) {
     console.error(error);
