@@ -59,8 +59,6 @@ describe('hausSdkRage', () => {
       dao,
     });
 
-    console.log('res', res);
-
     expect(res.data.proposals.length).toBeGreaterThan(10);
   });
 });
