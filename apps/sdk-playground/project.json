@@ -10,7 +10,7 @@
       "options": {
         "outputPath": "dist/apps/sdk-playground",
         "baseHref": "/",
-        "configFile": "@nxext/vite/plugins/vite",
+        "configFile": "apps/sdk-playground/vite.config.ts",
         "frameworkConfigFile": "@nxext/react/plugins/vite"
       },
       "configurations": {
@@ -35,7 +35,7 @@
       "options": {
         "outputPath": "dist/apps/sdk-playground",
         "baseHref": "/",
-        "configFile": "@nxext/vite/plugins/vite",
+        "configFile": "apps/sdk-playground/vite.config.ts",
         "frameworkConfigFile": "@nxext/react/plugins/vite"
       },
       "configurations": {
