@@ -1,8 +1,8 @@
 // required polyfill for browser/node fetch not included in urql
 import 'isomorphic-unfetch';
 import { createClient, OperationResult } from 'urql';
-import { ENDPOINTS } from '.';
-// import { ENDPOINTS } from '@daohaus/haus-parlor';
+import { ENDPOINTS } from '@daohaus/haus-parlor';
+// import { ENDPOINTS } from '.';
 
 import { QueryPair } from '..';
 
