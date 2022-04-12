@@ -4,9 +4,8 @@
     "sdk-playground": "apps/sdk-playground",
     "core": "apps/core",
     "daohaus-ui": "libs/daohaus-ui",
-    "haus-parlor": "libs/haus-parlor",
-    "haus-sdk": "libs/haus-sdk",
-    "haus-sdk-rage": "libs/haus-sdk-rage",
+    "utilities": "libs/utilities",
+    "data": "libs/data",
     "local-abis": "libs/local-abis",
     "summon": "apps/summon"
   }

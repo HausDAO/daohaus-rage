@@ -5,7 +5,7 @@ import {
   safeEncodeHexFunction,
   SubAction,
   toBaseUnits,
-} from '@daohaus/haus-sdk';
+} from '@daohaus/utilities';
 
 export const TEST = {
   SOME_GUY: '0xDE6bcde54CF040088607199FC541f013bA53C21E',
