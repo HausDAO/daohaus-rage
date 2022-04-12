@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import { BiErrorCircle } from 'react-icons/bi';
 import styled from 'styled-components';
 import { Color, Font } from '../styles/global';
 import { Field } from '../types/formTypes';
@@ -7,19 +6,9 @@ import Label from './Label';
 import Tooltip from './tooltip';
 import { ErrorText, HelperText, SuccessText, WarningText } from './typography';
 
-type WrapperProps = {
-  id: string;
-  label: string;
-  info: string;
-  helperText?: string;
-  successText?: string;
-  errorText?: string;
-  warningText?: string;
-};
-
 const InputContainer = styled.div`
   .guide-text {
-    margin-top: 11px;
+    margin-top: 12px;
   }
 `;
 
