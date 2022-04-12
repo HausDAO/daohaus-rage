@@ -1,9 +1,9 @@
 import { pipe, subscribe } from 'wonka';
-import { KEYCHAIN } from '@daohaus/haus-sdk';
+import { ENDPOINTS } from '@daohaus/utilities';
 import { Dispatch, SetStateAction } from 'react';
 import { createClient, OperationResult } from 'urql';
 
-const url = KEYCHAIN.V3_SUBGRAPH['0x4'];
+const url = ENDPOINTS.V3_SUBGRAPH['0x4'];
 
 const client = createClient({
   url: url as string,

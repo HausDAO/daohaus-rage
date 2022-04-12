@@ -2,16 +2,8 @@ import React from 'react';
 import { useWallet } from '@raidguild/quiver';
 
 import { initializationActions, initializationParams } from '../utils/summon';
-import { TRASH_PROPOSAL_FORMS, TRASH_SUMMON } from '@daohaus/haus-sdk';
-import { ArgType, isArgType, getNonce } from '@daohaus/haus-sdk';
-import {
-  Button,
-  FormBuilder,
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from '@daohaus/ui';
+import { ArgType, isArgType, getNonce, TRASH_SUMMON } from '@daohaus/utilities';
+import { Button, FormBuilder } from '@daohaus/ui';
 import { providers } from 'ethers';
 
 import { handleSummonArgs, summon, SummonFormData } from '../utils/summon';
