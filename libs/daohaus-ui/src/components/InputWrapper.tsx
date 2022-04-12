@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { BiErrorCircle } from 'react-icons/bi';
 import styled from 'styled-components';
-import { COLOR } from '../styles/global';
+import { Color } from '../styles/global';
 import { Field } from '../types/formTypes';
 import Label from './Label';
 import Tooltip from './tooltip';
@@ -33,6 +33,9 @@ const TopSection = styled.div`
   svg {
     transform: translateY(1px);
   }
+  .required-asterisk {
+    color: ${Color};
+  }
 `;
 
 const InputWrapper: FunctionComponent<Field> = ({
@@ -48,6 +51,7 @@ const InputWrapper: FunctionComponent<Field> = ({
   return (
     <InputContainer>
       <TopSection>
+        {<span className="required-asterisk">*</span>}
         <Label htmlFor={id}>{label}</Label>
         {info && <Tooltip content={info} />}
       </TopSection>

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { BiErrorCircle } from 'react-icons/bi';
-import { COLOR, FONT } from '../styles/global';
+import { Color, Font } from '../styles/global';
 import { FunctionComponent } from 'react';
 
 export const ParMd = styled.p`
@@ -16,7 +16,7 @@ export const ParSm = styled.p`
 `;
 
 export const HelperText = styled(ParSm)`
-  color: ${FONT.COLOR_LOW_KEY};
+  color: ${Font.ColorLowKey};
 `;
 
 export const WithIcon = styled.div`
@@ -35,13 +35,13 @@ export const SuccessText: FunctionComponent = ({ children }) => (
 );
 export const ErrorText: FunctionComponent = ({ children }) => (
   <WithIcon className="guide-text">
-    <BiErrorCircle size="1.2rem" color={COLOR.ERROR} />
-    <ParSm style={{ color: COLOR.ERROR }}>{children}</ParSm>
+    <BiErrorCircle size="1.2rem" color={Color.Error} />
+    <ParSm style={{ color: Color.Error }}>{children}</ParSm>
   </WithIcon>
 );
 export const WarningText: FunctionComponent = ({ children }) => (
   <WithIcon className="guide-text">
-    <BiErrorCircle size="1.2rem" color={COLOR.WARNING} />
-    <ParSm style={{ color: COLOR.WARNING }}>{children}</ParSm>
+    <BiErrorCircle size="1.2rem" color={Color.Warning} />
+    <ParSm style={{ color: Color.Warning }}>{children}</ParSm>
   </WithIcon>
 );

@@ -3,14 +3,14 @@ import { FunctionComponent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { IconType } from 'react-icons';
 import styled from 'styled-components';
-import { FIELD } from '../styles/form';
-import { FONT } from '../styles/global';
+import { Field } from '../styles/form';
+import { Font } from '../styles/global';
 
-import { Field } from '../types/formTypes';
+import { Field as FieldType } from '../types/formTypes';
 
 import InputWrapper from './InputWrapper';
 
-type InputComponent = Field & {
+type InputComponent = FieldType & {
   icon?: IconType;
   button?: FunctionComponent;
 };
@@ -53,26 +53,26 @@ export const GenericInput: FunctionComponent<InputComponent> = (props) => {
 };
 
 const StyledInput = styled.input`
-  background-color: ${FIELD.BG_COLOR};
-  color: ${FIELD.TEXT_COLOR};
-  font-size: ${FIELD.FONT_SIZE};
+  background-color: ${Field.BgColor};
+  color: ${Field.TextColor};
+  font-size: ${Field.FontSize};
   line-height: 2.4rem;
   font-weight: 400;
-  font-family: ${FONT.FAMILY.BODY};
+  font-family: ${Field.Font};
   height: 4.8rem;
-  max-width: ${FIELD.SIZE.MD};
+  max-width: ${Field.Size.MD};
   width: 100%;
   border: none;
-  border-radius: ${FIELD.BORDER_RADIUS};
+  border-radius: ${Field.BorderRadius};
   letter-spacing: 1.2px;
   padding: 12px 18px;
-  transition: ${FIELD.TRANSITION};
+  transition: ${Field.Transition};
 
   ::placeholder {
-    color: ${FONT.COLOR_PLACE_HOLDER};
+    color: ${Field.PlaceHolderColor};
   }
   :focus {
-    background-color: ${FIELD.BG_COLOR_FOCUS};
+    background-color: ${Field.BgColor_Focus};
     outline: none;
   }
   &.long {
@@ -85,7 +85,7 @@ const WithIcon = styled.div`
   width: 28rem;
   svg {
     position: absolute;
-    color: ${FIELD.ICON_COLOR};
+    color: ${Field.IconColor};
     top: 1.4rem;
     right: 2rem;
   }

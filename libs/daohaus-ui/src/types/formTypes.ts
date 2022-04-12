@@ -11,8 +11,6 @@ export type Field = {
   successText?: string;
   errorText?: string;
   warningText?: string;
-  error?: string;
-  warning?: string;
   long?: boolean;
 };
 

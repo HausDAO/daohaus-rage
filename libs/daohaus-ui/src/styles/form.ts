@@ -1,16 +1,16 @@
-import { COLOR, FONT, BORDER } from './global';
+import { Color, Font, Border } from './global';
 
-export const FIELD = {
-  SIZE: {
+export const Field = {
+  Size: {
     MD: '28rem',
   },
-  TEXT_COLOR: COLOR.STANDARD,
-  ICON_COLOR: COLOR.BG[500],
-  PLACE_HOLDER_COLOR: COLOR.PLACE_HOLDER,
-  BG_COLOR: COLOR.BG[100],
-  BG_COLOR_FOCUS: COLOR.BG[200],
-  BORDER_RADIUS: BORDER.RADIUS,
-  FONT_SIZE: FONT.SIZE.SM,
-  FONT: FONT.FAMILY.BODY,
-  TRANSITION: '0.2s all',
+  TextColor: Color.White,
+  IconColor: Color.Bg[500],
+  PlaceHolderColor: Color.Bg[500],
+  BgColor: Color.Bg[100],
+  BgColor_Focus: Color.Bg[200],
+  BorderRadius: Border.Radius,
+  FontSize: Font.Size.Md,
+  Font: Font.Family.BODY,
+  Transition: '0.2s all',
 };
