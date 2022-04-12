@@ -1,15 +1,15 @@
 import { ethers } from 'ethers';
 import { providers } from 'ethers';
-import { isArrayString } from '@daohaus/haus-sdk';
 
 import {
   ArgType,
-  KEYCHAIN,
+  isArrayString,
   safeEncodeHexFunction,
   defaultEncode,
   getNonce,
-} from '@daohaus/haus-sdk';
+} from '@daohaus/utilities';
 import { LOCAL_ABI } from '@daohaus/local-abis';
+import { CONTRACT_ADDRESSES } from '@daohaus/utilities';
 
 const TEST = {
   NETWORK: '0x4',
@@ -19,8 +19,8 @@ const TEST = {
 const INITIALIZATION_PARAMS = {
   SHARE_TOKEN_NAME: 'Rage Token',
   SHARE_TOKEN_SYMBOL: 'RAGE',
-  LOOT_SINGLETON: KEYCHAIN.BAAL_LOOT_SINGLETON['0x4'] as string,
-  MULTISEND_ADDRESS: KEYCHAIN.GNOSIS_MULTISEND['0x4'] as string,
+  LOOT_SINGLETON: CONTRACT_ADDRESSES.BAAL_LOOT_SINGLETON['0x4'] as string,
+  MULTISEND_ADDRESS: CONTRACT_ADDRESSES.GNOSIS_MULTISEND['0x4'] as string,
 };
 const ADMIN_CONFIG = {
   CONTRACT: LOCAL_ABI.BAAL,
@@ -84,7 +84,7 @@ const METADATA_CONFIG = {
   CONTRACT: LOCAL_ABI.BAAL,
   ACTION: 'executeAsBaal',
   ARGS: {
-    TO: KEYCHAIN.POSTER['0x4'],
+    TO: CONTRACT_ADDRESSES.POSTER['0x4'],
     VALUE: 0,
     DATA: METADATA,
   },
@@ -118,7 +118,7 @@ export const summon = async (
 ) => {
   try {
     const contract = new ethers.Contract(
-      KEYCHAIN.BAAL_FACTORY['0x4'] as string,
+      CONTRACT_ADDRESSES.BAAL_FACTORY['0x4'] as string,
       LOCAL_ABI.BAAL_FACTORY,
       provider.getSigner()
     );
@@ -157,8 +157,8 @@ export const handleSummonArgs = (formValues: SummonFormData) => {
     [
       formValues.tokenName,
       formValues.tokenSymbol,
-      KEYCHAIN.BAAL_LOOT_SINGLETON['0x4'] as string,
-      KEYCHAIN.GNOSIS_MULTISEND['0x4'] as string,
+      CONTRACT_ADDRESSES.BAAL_LOOT_SINGLETON['0x4'] as string,
+      CONTRACT_ADDRESSES.GNOSIS_MULTISEND['0x4'] as string,
     ]
   );
   const initializationActions = [
@@ -203,7 +203,7 @@ export const handleSummonArgs = (formValues: SummonFormData) => {
     {
       ...METADATA_CONFIG,
       ARGS: [
-        KEYCHAIN.POSTER['0x4'],
+        CONTRACT_ADDRESSES.POSTER['0x4'],
         0, // value
         safeEncodeHexFunction(LOCAL_ABI.POSTER, 'post', [
           JSON.stringify({ name: formValues.daoName }),

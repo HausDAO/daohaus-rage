@@ -15,9 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@daohaus/haus-sdk": ["libs/haus-sdk/src/index.ts"],
-      "@daohaus/haus-sdk-rage": ["libs/haus-sdk-rage/src/index.ts"],
-      "@daohaus/haus-parlor": ["libs/haus-parlor/src/index.ts"],
+      "@daohaus/data": ["libs/data/src/index.ts"],
+      "@daohaus/utilities": ["libs/utilities/src/index.ts"],
       "@daohaus/local-abis": ["libs/local-abis/src/index.ts"],
       "@daohaus/ui": ["libs/daohaus-ui/src/index.ts"]
     }

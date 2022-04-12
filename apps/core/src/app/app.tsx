@@ -4,7 +4,7 @@ import { providers } from 'ethers';
 import styled from 'styled-components';
 import { Link, Route, Switch, useParams } from 'react-router-dom';
 
-import { DAO_PROPOSALS, TRASH_PROPOSAL_FORMS } from '@daohaus/haus-sdk';
+import { TRASH_PROPOSAL_FORMS } from '@daohaus/utilities';
 import { Button, FormBuilder } from '@daohaus/ui';
 import { handleProposalArgs, sendProposal, TEST } from '../utils/proposal';
 import {
@@ -12,16 +12,13 @@ import {
   simpleFetch,
   startAppClock,
 } from '../utils/dataFetch';
-// import {
-//   DAO_PROPOSALS,
-//   proposalResolver,
-//   simpleFetch,
-//   startAppClock,
-// } from '../utils/theGraph';
+import { DAO_PROPOSALS } from '../utils/queries';
 
 type Proposal = {
   details: string;
   id: string;
+  title: string;
+  description: string;
 };
 
 const Layout = styled.main`
@@ -105,6 +102,7 @@ const App: FunctionComponent = () => {
 
     sendProposal(provider);
   };
+  console.log('proposals', proposals);
 
   return (
     <Layout>
@@ -157,11 +155,10 @@ const ProposalList: FunctionComponent<{ proposals: Proposal[] | null }> = ({
 }) => (
   <ProposalListContainer>
     {proposals?.map((proposal: Proposal) => {
-      const details = JSON.parse(proposal.details);
       return (
         <ProposalBox key={proposal.id}>
-          <p className="proposalTitle">{details.title}</p>
-          <p className="proposalDescription">{details.description}</p>
+          <p className="proposalTitle">{proposal.title}</p>
+          <p className="proposalDescription">{proposal.description}</p>
           <Link to={`/baal/${chainID}/${daoID}/${proposal.id}`}>Details</Link>
         </ProposalBox>
       );
@@ -176,17 +173,15 @@ const ProposalDetails: FunctionComponent<{
   const selectedProposal = useMemo(() => {
     if (!proposals || !proposalID) return;
     const propRaw = proposals?.find((proposal) => proposal.id === proposalID);
-    return propRaw && { ...propRaw, details: JSON.parse(propRaw.details) };
+    return propRaw && { ...propRaw };
   }, [proposals, proposalID]);
 
   return (
     <ProposalBox>
       {selectedProposal && (
         <>
-          <p className="proposalTitle">{selectedProposal.details.title}</p>
-          <p className="proposalDescription">
-            {selectedProposal.details.description}
-          </p>
+          <p className="proposalTitle">{selectedProposal.title}</p>
+          <p className="proposalDescription">{selectedProposal.description}</p>
         </>
       )}
       <Link to="/list">Back to Proposals</Link>

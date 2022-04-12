@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useWallet } from '@raidguild/quiver';
 
 import { Button } from '@daohaus/ui';
-import { Haus } from '@daohaus/haus-sdk-rage';
+import { Haus } from '@daohaus/data';
 
 const haus = Haus.create({
   '0x4': 'https://<somekey>.rinkeby.rpc.rivet.cloud',
