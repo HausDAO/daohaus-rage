@@ -2,7 +2,6 @@
 import 'isomorphic-unfetch';
 import { createClient, OperationResult } from 'urql';
 import { ENDPOINTS } from '@daohaus/haus-parlor';
-// import { ENDPOINTS } from '.';
 
 import { QueryPair } from '..';
 
