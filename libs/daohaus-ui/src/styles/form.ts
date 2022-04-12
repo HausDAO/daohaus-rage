@@ -2,7 +2,7 @@ import { Color, Font, Border } from './global';
 
 export const Field = {
   Size: {
-    MD: '28rem',
+    Md: '28rem',
   },
   TextColor: Color.White,
   IconColor: Color.Bg[500],
@@ -11,6 +11,6 @@ export const Field = {
   BgColor_Focus: Color.Bg[200],
   BorderRadius: Border.Radius,
   FontSize: Font.Size.Md,
-  Font: Font.Family.BODY,
+  Font: Font.Family.Body,
   Transition: '0.2s all',
 };

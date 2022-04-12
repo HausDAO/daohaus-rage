@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { BiErrorCircle } from 'react-icons/bi';
 import styled from 'styled-components';
-import { Color } from '../styles/global';
+import { Color, Font } from '../styles/global';
 import { Field } from '../types/formTypes';
 import Label from './Label';
 import Tooltip from './tooltip';
@@ -26,15 +26,18 @@ const InputContainer = styled.div`
 const TopSection = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 11px;
+  margin-bottom: 12px;
   label {
-    margin-right: 8px;
+    margin-right: 10px;
   }
   svg {
-    transform: translateY(1px);
+    transform: translateY(0.1rem);
   }
   .required-asterisk {
+    margin-right: 8px;
+    font-weight: ${Font.Weight.Bold};
     color: ${Color};
+    transform: translateY(-0.25rem);
   }
 `;
 
@@ -47,11 +50,12 @@ const InputWrapper: FunctionComponent<Field> = ({
   errorText,
   warningText,
   info,
+  required,
 }) => {
   return (
     <InputContainer>
       <TopSection>
-        {<span className="required-asterisk">*</span>}
+        {required && <span className="required-asterisk">*</span>}
         <Label htmlFor={id}>{label}</Label>
         {info && <Tooltip content={info} />}
       </TopSection>

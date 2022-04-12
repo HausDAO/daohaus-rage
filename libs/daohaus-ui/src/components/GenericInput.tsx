@@ -57,17 +57,16 @@ const StyledInput = styled.input`
   color: ${Field.TextColor};
   font-size: ${Field.FontSize};
   line-height: 2.4rem;
-  font-weight: 400;
+  font-weight: ${Font.Weight.Medium};
   font-family: ${Field.Font};
   height: 4.8rem;
-  max-width: ${Field.Size.MD};
+  max-width: ${Field.Size.Md};
   width: 100%;
   border: none;
   border-radius: ${Field.BorderRadius};
   letter-spacing: 1.2px;
   padding: 12px 18px;
   transition: ${Field.Transition};
-
   ::placeholder {
     color: ${Field.PlaceHolderColor};
   }

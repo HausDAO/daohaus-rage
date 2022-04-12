@@ -24,7 +24,11 @@ export const Font = {
     Md: '1.6rem',
   },
   Family: {
-    BODY: 'Mulish',
+    Body: 'Mulish',
+  },
+  Weight: {
+    Medium: 400,
+    Bold: 700,
   },
   Color: Color.White,
   ColorPlaceHolder: Color.Bg[500],
