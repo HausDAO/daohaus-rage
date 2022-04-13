@@ -11,8 +11,17 @@ export const TEST = {
   SOME_GUY: '0xDE6bcde54CF040088607199FC541f013bA53C21E',
   AMT: 100,
   DAO: '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364',
-  PROPOSAL_TYPE: 'Free Shit Proposal',
 };
+
+export const PROPOSAL_TYPES = {
+  FREE: 'Free Shit Proposal',
+} as const;
+export const CONTENT_TYPES = {
+  LINK: 'link',
+  LINKS: 'arrayOfLinks',
+  MD: 'markdown',
+  PINATA_MD: 'pinataMarkdown',
+} as const;
 
 const MINT_SHARES = {
   ABI: LOCAL_ABI.BAAL,
@@ -33,19 +42,39 @@ const PROPOSAL_MULTICALL_DATA: SubAction[] = [
   },
 ];
 
+// type ValueOf<T> = T[keyof T];
+
+// type ContentURI = {
+//   type: ValueOf<typeof CONTENT_TYPES>;
+//   content: string | ContentURI[];
+//   [index: string]: unknown;
+// };
+
+// type ProposalDetails = {
+//   title: string;
+//   proposalType: ValueOf<typeof PROPOSAL_TYPES>;
+//   description?: string;
+//   contentURI?: ContentURI;
+// };
+
+// const createProposalDetails = (detailsObject: ProposalDetails) =>
+//   JSON.stringify({
+//     ...detailsObject,
+//     contentURI: JSON.stringify(detailsObject.contentURI),
+//   });
+
 const proposaDetails = JSON.stringify({
   title: '20 Share Giveaway w/ schema!',
   description: 'Give 20 share to some random address w/ schema',
   contentURI: 'https://www.twistedchickentenders.com/',
   contentURIType: 'link',
-  proposalType: TEST.PROPOSAL_TYPE,
+  proposalType: PROPOSAL_TYPES.FREE,
 });
 const proposalData = encodeMultiAction(
   LOCAL_ABI.GNOSIS_MULTISEND,
   'multiSend',
   PROPOSAL_MULTICALL_DATA
 );
-
 const args = [proposalData, 0, proposaDetails];
 
 export const sendProposal = async (
@@ -72,6 +101,7 @@ export const handleProposalArgs = (formValues: {
   console.log('formValues', formValues);
   const { title, description, sharesRequested, lootRequested, address } =
     formValues;
+
   const formattedShares = sharesRequested
     ? toBaseUnits(sharesRequested as string)
     : '0';
@@ -104,7 +134,7 @@ export const handleProposalArgs = (formValues: {
     JSON.stringify({
       title,
       description,
-      proposalType: TEST.PROPOSAL_TYPE,
+      proposalType: PROPOSAL_TYPES.FREE,
     }),
   ];
 };

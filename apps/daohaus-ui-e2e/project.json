@@ -1,0 +1,28 @@
+{
+  "root": "apps/daohaus-ui-e2e",
+  "sourceRoot": "apps/daohaus-ui-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/daohaus-ui-e2e/cypress.json",
+        "devServerTarget": "daohaus-ui:storybook"
+      },
+      "configurations": {
+        "ci": {
+          "devServerTarget": "daohaus-ui:storybook:ci"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/daohaus-ui-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["daohaus-ui"]
+}
