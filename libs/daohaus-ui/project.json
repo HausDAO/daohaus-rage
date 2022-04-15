@@ -39,13 +39,6 @@
         "passWithNoTests": true
       }
     },
-    "deploy": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "tag": "alpha",
-        "access": "public"
-      }
-    },
     "storybook": {
       "executor": "@nrwl/storybook:storybook",
       "options": {

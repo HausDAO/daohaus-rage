@@ -28,13 +28,6 @@
         "main": "libs/local-abis/src/index.ts",
         "assets": ["libs/local-abis/*.md"]
       }
-    },
-    "deploy": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "tag": "alpha",
-        "access": "public"
-      }
     }
   },
   "tags": []
