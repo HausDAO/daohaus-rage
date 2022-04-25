@@ -3,6 +3,7 @@
   "projects": {
     "sdk-playground": "apps/sdk-playground",
     "core": "apps/core",
+    "baal-subgraph": "apps/baal-subgraph",
     "daohaus-ui": "libs/daohaus-ui",
     "utilities": "libs/utilities",
     "data": "libs/data",
