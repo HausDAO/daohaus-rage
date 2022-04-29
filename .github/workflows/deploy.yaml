@@ -16,6 +16,7 @@ jobs:
           node-version: 16.x
       - run: yarn install
       - run: npm install -g nx
+      - run: npm install -g @graphprotocol/graph-cli
       - name: Lint mono
         run: nx affected:lint --base $BASE
       - name: Build mono
