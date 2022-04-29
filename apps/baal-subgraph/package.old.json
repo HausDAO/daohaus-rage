@@ -1,0 +1,20 @@
+{
+  "name": "daostar-moloch",
+  "version": "0.1.0",
+  "scripts": {
+    "create": "graph create alexkeating/daostar-moloch --node https://api.thegraph.com/deploy/",
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "create-local": "graph create alexkeating/daostar-moloch --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy alexkeating/daostar-moloch --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
+    "build:all": "yarn codegen && yarn build",
+    "prepare:rinkeby": "node manifests/deploy-prep.js rinkeby",
+    "deploy:rinkeby": "yarn prepare:rinkeby && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ alexkeating/daostar-moloch"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-ts": "0.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "js-yaml": "^3.13.1"
+  }
+}

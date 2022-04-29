@@ -1,0 +1,65 @@
+{
+  "root": "apps/baal-subgraph",
+  "sourceRoot": "apps/baal-subgraph/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "graph codegen apps/baal-subgraph/subgraph.yaml"
+      }
+    },
+    "serve": {
+      "executor": "@alexkeating/nx-subgraph:serve",
+      "options": {
+        "daemonMode": true,
+        "composePath": "docker-compose.yml"
+      }
+    },
+    "stop": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "docker compose kill",
+        "cwd": "apps/baal-subgraph"
+      }
+    },
+    "deploy": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "graph deploy baal-subgraph --node http://127.0.0.1:8020 --ipfs http://localhost:5001",
+        "cwd": "apps/baal-subgraph"
+      }
+    },
+    "create": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "graph create baal-subgraph --node http://127.0.0.1:8020",
+        "cwd": "apps/baal-subgraph"
+      }
+    },
+    "prepare": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "node manifests/deploy-prep.js rinkeby",
+        "cwd": "apps/baal-subgraph"
+      }
+    },
+
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/sdk-playground/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/sdk-playground"],
+      "options": {
+        "jestConfig": "apps/sdk-playground/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,109 @@
+
+type Dao @entity {
+  id: ID!
+  createdAt: String!
+  lootAddress: Bytes!
+  safeAddress: Bytes!
+  lootPaused: Boolean!
+  sharesPaused: Boolean!
+  gracePeriod: BigInt!
+  votingPeriod: BigInt!
+  proposalOffering: BigInt!
+  quorumPercent: BigInt!
+  sponsorThreshold: BigInt!
+  minRetentionPercent: BigInt!
+  shareTokenName: String
+  shareTokenSymbol: String
+  totalShares: BigInt!
+  totalLoot: BigInt!
+}
+
+type MemberUri @entity {
+  id: ID!
+  members: [Member!] @derivedFrom(field: "dao")
+}
+
+
+type Member @entity {
+  id: ID!
+  createdAt: String!
+  dao: MemberUri!
+  memberAddress: Bytes!
+  shares: BigInt!
+  loot: BigInt!
+  delegatingTo: Bytes!
+  delegateShares: BigInt!
+}
+
+type ProposalUri @entity {
+  id: ID!
+  proposals: [Proposal!] @derivedFrom(field: "dao")
+}
+
+type Proposal @entity {
+  id: ID!
+  createdAt: String!
+  createdBy: Bytes!
+  dao: ProposalUri!
+  proposalId: BigInt!
+  prevProposalId: BigInt!
+  proposalDataHash: Bytes!
+  votingPeriod: BigInt!
+  votingStarts: BigInt!
+  votingEnds: BigInt!
+  graceEnds: BigInt!
+  proposalData: Bytes!
+  expiration: BigInt!
+  details: String!
+  selfSponsor: Boolean!
+  sponsored: Boolean!
+  cancelled: Boolean!
+  processed: Boolean!
+  sponsor: Bytes!
+  actionFailed: Boolean!
+  passed: Boolean!
+  proposalOffering: BigInt!
+  yesVotes: BigInt!
+  noVotes: BigInt!
+  yesBalance: BigInt!
+  noBalance: BigInt!
+  maxTotalSharesAndLootAtYesVote: BigInt!
+  tributeToken: Bytes
+  tributeOffered: BigInt
+  tributeTokenSymbol: String
+  tributeTokenDecimals: BigInt
+  tributeEscrowRecipient: Bytes
+  proposalType: String!
+  title: String
+  description: String
+  contentURI: String
+  contentURIType: String
+  votes: [Vote!] @derivedFrom(field: "proposal")
+}
+
+
+type Vote @entity {
+  id: ID!
+  createdAt: String!
+  daoAddress: Bytes!
+  approved: Boolean!
+  balance: BigInt!
+  proposal: Proposal!
+  member: Member!
+}
+
+type ActivityUri @entity {
+  id: ID!
+  activites: [Activity!] @derivedFrom(field: "dao")
+}
+
+
+type Activity @entity {
+  id: ID!
+  createdAt: String!
+  member: Bytes!
+  dao: ActivityUri!
+  activityType: String!
+  proposalId: BigInt!
+  value: String!
+}
